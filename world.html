@@ -582,7 +582,8 @@
                 government: "Magocratic Oligarchy led by Archon Narolveld",
                 cities: "Arcanum City, Morvand, Astral Spire, Starfall",
                 terrain: "Magical biomes with floating islands and crystalline forests",
-                heraldry: "A Sphinx symbolizing wisdom and mystery"
+                heraldry: "A Sphinx symbolizing wisdom and mystery",
+                image: "Arcanum_Sigil.png"
             },
             {
                 name: "Banorak",
@@ -592,7 +593,8 @@
                 government: "Monarchy under King Horrut the Merciless",
                 cities: "Bloodmoon Bay, Hidden Port",
                 terrain: "Tropical with rocky cliffs and sandy shores",
-                heraldry: "A kraken symbolizing the unpredictable sea"
+                heraldry: "A kraken symbolizing the unpredictable sea",
+                image: "Banorak_Sigil.png"
             },
             {
                 name: "Corsairia",
@@ -602,7 +604,8 @@
                 government: "Monarchy under King Rodrigo the Usurper with Council of Captains",
                 cities: "Ulmoth, Cobalt Bay, Dragon Port",
                 terrain: "Rugged coastline with natural harbors and sheltered coves",
-                heraldry: "An orange dragon on deep blue"
+                heraldry: "An orange dragon on deep blue",
+                image: "Corsairia_Sigil.png"
             },
             {
                 name: "Dominion of Sand",
@@ -612,7 +615,8 @@
                 government: "Led by Grand Caliph Zahir",
                 cities: "Sahardin, Zarqath",
                 terrain: "Endless deserts with oases and sand dunes",
-                heraldry: "White crescent moon and star on garnet and blue"
+                heraldry: "White crescent moon and star on garnet and blue",
+                image: "Dominion of Sand_Sigil.png"
             },
             {
                 name: "Dunmar",
@@ -622,7 +626,8 @@
                 government: "Monarchy under King Aradun",
                 cities: "Lion's Roost, Realm's End, Griffindale",
                 terrain: "Expansive plains and fertile farmlands",
-                heraldry: "A gold rampant lion cross on sky blue"
+                heraldry: "A gold rampant lion cross on sky blue",
+                image: "Dunmar_Sigil.png"
             },
             {
                 name: "Empire of Ix",
@@ -632,7 +637,8 @@
                 government: "Formerly under Vexis the Bloodlord, now uncertain",
                 cities: "Ixador, Sunhaven",
                 terrain: "Boreal forests and frozen taiga",
-                heraldry: "A white serpent on black"
+                heraldry: "A white serpent on black",
+                image: "Empire of Ix_Sigil.png"
             },
             {
                 name: "Frostheim",
@@ -642,7 +648,8 @@
                 government: "Council of Nine Jarls",
                 cities: "Krakenheim, Ice Keep, Maw of the Gods, WizardBane",
                 terrain: "Frozen tundra and icy mountains",
-                heraldry: "A white polar bear on grey"
+                heraldry: "A white polar bear on grey",
+                image: "Frostheim_Sigil.png"
             },
             {
                 name: "Hearthland",
@@ -652,7 +659,8 @@
                 government: "Monarchy under King Draegon the Unyielding",
                 cities: "Nyr's Gate, Ever Reach, Teinara, Dwarvengarde",
                 terrain: "Rolling hills and dense forests",
-                heraldry: "A white owl on vibrant orange"
+                heraldry: "A white owl on vibrant orange",
+                image: "Hearthland_Sigil.png"
             },
             {
                 name: "RingingHammer",
@@ -662,7 +670,8 @@
                 government: "Monarchy under Dwarven King Thorgrim Stonebeard",
                 cities: "RingingHammer (the entire mountain stronghold)",
                 terrain: "Mountainous peaks and underground caverns",
-                heraldry: "An iron crown on brown"
+                heraldry: "An iron crown on brown",
+                image: "RingingHammer_Sigil.png"
             },
             {
                 name: "Silvandor",
@@ -672,7 +681,8 @@
                 government: "Monarchy under Queen Lady Lorien",
                 cities: "Silvandor, Vairethil (trading post)",
                 terrain: "Temperate forests with cascading waterfalls",
-                heraldry: "A white tree on green"
+                heraldry: "A white tree on green",
+                image: "Silvandor_Sigil.png"
             },
             {
                 name: "Solandil",
@@ -682,7 +692,8 @@
                 government: "Monarchy under Queen Catriona the High Monarch",
                 cities: "Sun Port, Stag Harbor, Glen Hollow",
                 terrain: "Fertile plains and rolling hills",
-                heraldry: "A great stag in gold on deep purple"
+                heraldry: "A great stag in gold on deep purple",
+                image: "Solandil_Sigil.png"
             },
             {
                 name: "Orckrag",
@@ -692,7 +703,8 @@
                 government: "Fragmented tribes, recently organizing",
                 cities: "Ghor'Mak (War City)",
                 terrain: "High mountains with volcanic activity",
-                heraldry: "A red wolf on yellow"
+                heraldry: "A red wolf on yellow",
+                image: "Orckrag_Sigil.png"
             }
         ];
 
@@ -931,7 +943,9 @@
                 const card = document.createElement('div');
                 card.className = 'kingdom-card';
                 card.innerHTML = `
-                    <div class="kingdom-image">[Kingdom Image - Coming Soon]</div>
+                    <div class="kingdom-image">
+                        <img src="${kingdom.image}" alt="${kingdom.name} Sigil" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;">
+                    </div>
                     <div class="kingdom-content">
                         <h3>${kingdom.name}</h3>
                         <p>${kingdom.description}</p>
