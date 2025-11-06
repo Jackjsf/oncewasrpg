@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnceWas Core Rule Book | Free RPG Rules</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .pdf-viewer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+            background-color: var(--background-dark);
+            min-height: 100vh;
+        }
+        
+        .pdf-header {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            color: var(--text-light);
+        }
+        
+        .pdf-header h1 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .pdf-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .pdf-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .pdf-embed-wrapper {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .pdf-embed {
+            width: 100%;
+            height: 85vh;
+            border: none;
+            display: block;
+        }
+        
+        .pdf-fallback {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+        }
+        
+        .pdf-fallback h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .pdf-cover-preview {
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+        
+        .pdf-cover-preview img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .pdf-embed {
+                height: 70vh;
+            }
+            
+            .pdf-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="OnceWas_logo.png" alt="OnceWas RPG" class="logo-image">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#rpg">The RPG</a></li>
+                <li><a href="index.html#adventures">Adventures</a></li>
+                <li><a href="index.html#novels">Novels</a></li>
+                <li><a href="index.html#world">About the World</a></li>
+                <li><a href="index.html#community">Community</a></li>
+                <li><a href="index.html#shop">Shop</a></li>
+            </ul>
+            <a href="index.html" class="cta-button nav-cta">Back to Home</a>
+        </nav>
+    </header>
+
+    <!-- PDF Viewer Section -->
+    <div class="pdf-viewer-container">
+        <div class="pdf-header">
+            <h1>OnceWas Core Rule Book</h1>
+            <p>The complete 208-page rule system. Read online free or download the watermarked PDF. Purchase the unwatermarked PDF or print copy.</p>
+            
+            <div class="pdf-actions">
+                <a href="Core_Rule_Book.pdf" download class="cta-button primary">
+                    📥 Download PDF (Watermarked)
+                </a>
+                <a href="Core_Rule_Book.pdf" target="_blank" class="cta-button secondary">
+                    📖 Open in New Tab
+                </a>
+                <a href="https://www.amazon.com/dp/YOUR-ASIN-HERE" target="_blank" class="cta-button secondary">
+                    📚 Buy Print Copy
+                </a>
+            </div>
+        </div>
+        
+        <!-- PDF Embed -->
+        <div class="pdf-embed-wrapper">
+            <embed src="Core_Rule_Book.pdf#toolbar=1&navpanes=1&scrollbar=1" 
+                   type="application/pdf" 
+                   class="pdf-embed"
+                   title="OnceWas Core Rule Book">
+            
+            <!-- Fallback for browsers that don't support PDF embed -->
+            <noscript>
+                <div class="pdf-fallback">
+                    <h2>View the Core Rule Book</h2>
+                    <div class="pdf-cover-preview">
+                        <img src="Core_Rule_Book_Cover.jpg" alt="OnceWas Core Rule Book Cover">
+                    </div>
+                    <p>Your browser doesn't support embedded PDFs.</p>
+                    <a href="Core_Rule_Book.pdf" download class="cta-button primary">Download Watermarked PDF</a>
+                    <p style="margin-top: 1rem;">Want the unwatermarked version? <a href="https://gumroad.com/oncewas" target="_blank">Purchase here</a></p>
+                </div>
+            </noscript>
+        </div>
+        
+        <!-- Info Section -->
+        <div style="text-align: center; padding: 3rem 0; color: var(--text-light);">
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                <strong>Free Forever (Watermarked)</strong> | 208 Pages | OSR Compatible | Creative Commons Licensed
+            </p>
+            <p style="opacity: 0.8;">
+                Unwatermarked PDF available for purchase | Based on Basic Fantasy 3rd Edition by Chris Gonnerman<br>
+                Re-Design: Jack Frank | Editor: Ryan Hartman
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>OnceWas</h4>
+                    <p>Where stories become adventures.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="core-rules.html">Core Rules</a></li>
+                        <li><a href="index.html#adventures">Adventures</a></li>
+                        <li><a href="index.html#novels">Novels</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Downloads</h4>
+                    <ul>
+                        <li><a href="Core_Rule_Book.pdf" download>Core Rule Book PDF</a></li>
+                        <li><a href="world_map_RW.jpg" download>World Map</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 OnceWas RPG. Licensed under Creative Commons BY-SA 4.0.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
