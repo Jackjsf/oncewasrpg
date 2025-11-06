@@ -502,9 +502,58 @@
             background: #8b7355;
             transform: translateY(-5px);
         }
+
+        /* Navigation Header */
+        .world-nav {
+            background: #0a0a0a;
+            padding: 20px;
+            border-bottom: 2px solid #8b7355;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .world-nav .logo-link {
+            color: #d4af37;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .world-nav .logo-link:hover {
+            color: #8b7355;
+        }
+
+        .home-button {
+            background: #d4af37;
+            color: #0a0a0a;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #d4af37;
+        }
+
+        .home-button:hover {
+            background: transparent;
+            color: #d4af37;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
     </style>
 </head>
 <body>
+    <!-- Navigation Header -->
+    <nav class="world-nav">
+        <a href="index.html" class="logo-link">OnceWas RPG</a>
+        <a href="index.html" class="home-button">← Back to Home</a>
+    </nav>
+
     <!-- Hero Section with Map -->
     <section class="map-hero">
         <h1>The World of OnceWas</h1>
