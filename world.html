@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The World of OnceWas | OnceWas RPG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.7;
+        }
+
+        /* Hero Section with Interactive Map */
+        .map-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 2px solid #8b7355;
+        }
+
+        .map-hero h1 {
+            font-size: 3.5rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .map-hero p {
+            font-size: 1.3rem;
+            color: #c0c0c0;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .map-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .map-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 3px solid #8b7355;
+        }
+
+        .map-placeholder {
+            background: #1a1a2e;
+            border: 3px dashed #8b7355;
+            border-radius: 10px;
+            padding: 100px 40px;
+            text-align: center;
+            color: #8b7355;
+            font-size: 1.5rem;
+        }
+
+        /* Tab Navigation */
+        .tab-container {
+            background: #0f0f0f;
+            border-bottom: 3px solid #8b7355;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #c0c0c0;
+            font-size: 1.3rem;
+            padding: 25px 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            font-family: 'Georgia', serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .tab-btn:hover {
+            color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .tab-btn.active {
+            color: #d4af37;
+            border-bottom: 3px solid #d4af37;
+            background: rgba(212, 175, 55, 0.15);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 60px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Kingdom Cards */
+        .kingdoms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .kingdom-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #8b7355;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .kingdom-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+            border-color: #d4af37;
+        }
+
+        .kingdom-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #2a2a3e 0%, #1a1a2e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b7355;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #8b7355;
+        }
+
+        .kingdom-content {
+            padding: 30px;
+        }
+
+        .kingdom-content h3 {
+            font-size: 2rem;
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+
+        .kingdom-content p {
+            color: #c0c0c0;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .kingdom-detail {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #3a3a4e;
+        }
+
+        .kingdom-detail strong {
+            color: #d4af37;
+        }
+
+        /* Expandable Kingdom Details */
+        .kingdom-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: rgba(10, 10, 10, 0.6);
+            padding: 0 30px;
+        }
+
+        .kingdom-details.expanded {
+            max-height: 5000px;
+            padding: 30px;
+        }
+
+        .kingdom-details h4 {
+            color: #d4af37;
+            font-size: 1.5rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .kingdom-details p {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        /* Factions Grid */
+        .factions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .faction-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #8b7355;
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .faction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+        }
+
+        .faction-card h3 {
+            font-size: 1.8rem;
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+
+        .faction-card p {
+            color: #c0c0c0;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        /* Gods Gallery */
+        .gods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .god-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #8b7355;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .god-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+            border-color: #d4af37;
+        }
+
+        .god-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-bottom: 2px solid #8b7355;
+        }
+
+        .god-image-placeholder {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #2a2a3e 0%, #1a1a2e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b7355;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #8b7355;
+        }
+
+        .god-content {
+            padding: 25px;
+        }
+
+        .god-content h3 {
+            font-size: 1.8rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .god-content .god-title {
+            color: #b0b0b0;
+            font-style: italic;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .god-content p {
+            color: #c0c0c0;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .god-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #3a3a4e;
+            font-size: 0.9rem;
+        }
+
+        .god-details div {
+            margin-bottom: 8px;
+            color: #b0b0b0;
+        }
+
+        .god-details strong {
+            color: #d4af37;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #8b7355, #d4af37, #8b7355);
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: 52%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: 52%;
+            text-align: left;
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #8b7355;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            border-color: #d4af37;
+        }
+
+        .timeline-content h3 {
+            color: #d4af37;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .timeline-date {
+            color: #8b7355;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .timeline-content p {
+            color: #c0c0c0;
+            line-height: 1.8;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #d4af37;
+            border: 4px solid #1a1a2e;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .map-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .tab-btn {
+                font-size: 1rem;
+                padding: 20px 25px;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .kingdoms-grid,
+            .factions-grid,
+            .gods-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 80px;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-marker {
+                left: 30px;
+            }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #d4af37;
+            color: #0a0a0a;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            background: #8b7355;
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section with Map -->
+    <section class="map-hero">
+        <h1>The World of OnceWas</h1>
+        <p>A realm of ancient magic, warring kingdoms, and forgotten gods. Explore the lands where heroes rise and darkness threatens to consume all.</p>
+        
+        <div class="map-container">
+            <img src="world_map_RW.jpg" alt="Map of OnceWas" usemap="#worldmap" id="worldMap">
+            <map name="worldmap">
+                <!-- Interactive regions will be added here for clicking on kingdoms -->
+            </map>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="tab-container">
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="kingdoms">Kingdoms</button>
+            <button class="tab-btn" data-tab="factions">Factions</button>
+            <button class="tab-btn" data-tab="gods">Gods</button>
+            <button class="tab-btn" data-tab="history">History</button>
+        </div>
+    </div>
+
+    <!-- Kingdoms Tab -->
+    <div class="tab-content active" id="kingdoms">
+        <div class="section-header">
+            <h2>The Twelve Kingdoms</h2>
+            <p>From the frozen wastes of Frostheim to the burning sands of the Dominion of Sand, each kingdom bears its own history, culture, and destiny in the ever-shifting tapestry of OnceWas.</p>
+        </div>
+
+        <div class="kingdoms-grid" id="kingdomsGrid"></div>
+    </div>
+
+    <!-- Factions Tab -->
+    <div class="tab-content" id="factions">
+        <div class="section-header">
+            <h2>Factions of Power</h2>
+            <p>Secret societies, merchant guilds, ancient orders, and shadowy cabals—these organizations shape the fate of nations from behind the scenes.</p>
+        </div>
+
+        <div class="factions-grid" id="factionsGrid"></div>
+    </div>
+
+    <!-- Gods Tab -->
+    <div class="tab-content" id="gods">
+        <div class="section-header">
+            <h2>The Divine Pantheon</h2>
+            <p>The Twelve Major Gods rule from Elysium, while lesser deities and demon lords vie for mortal worship and power across the realms.</p>
+        </div>
+
+        <div class="gods-grid" id="godsGrid"></div>
+    </div>
+
+    <!-- History Tab -->
+    <div class="tab-content" id="history">
+        <div class="section-header">
+            <h2>The Ages of OnceWas</h2>
+            <p>From the Age of Dragons through the rise and fall of empires, the history of OnceWas is written in blood, magic, and the deeds of heroes.</p>
+        </div>
+
+        <div class="timeline" id="timeline"></div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">↑</div>
+
+    <script>
+        // Kingdom Data
+        const kingdoms = [
+            {
+                name: "Arcanum",
+                patron: "Curumo, god of knowledge",
+                population: "Unknown",
+                description: "The Magocracy of Arcanum is renowned as a place of magic and the arcane arts. Governed by a council of Archmagisters, each representing a different school of magic.",
+                government: "Magocratic Oligarchy led by Archon Narolveld",
+                cities: "Arcanum City, Morvand, Astral Spire, Starfall",
+                terrain: "Magical biomes with floating islands and crystalline forests",
+                heraldry: "A Sphinx symbolizing wisdom and mystery"
+            },
+            {
+                name: "Banorak",
+                patron: "Irmo, Queen of Thieves",
+                population: "~25,000",
+                description: "Once known as Banishment Rock, this island was a penal colony that overthrew its Solandiln occupiers. Now a haven for pirates and the free, ruled by King Horrut the Merciless.",
+                government: "Monarchy under King Horrut the Merciless",
+                cities: "Bloodmoon Bay, Hidden Port",
+                terrain: "Tropical with rocky cliffs and sandy shores",
+                heraldry: "A kraken symbolizing the unpredictable sea"
+            },
+            {
+                name: "Corsairia",
+                patron: "Ulmo, god of water and oceans",
+                population: "~300,000",
+                description: "A prominent trading power leveraging maritime dominance. Nine Sea Lords form the Council of Captains, governing coastal cities and naval affairs.",
+                government: "Monarchy under King Rodrigo the Usurper with Council of Captains",
+                cities: "Ulmoth, Cobalt Bay, Dragon Port",
+                terrain: "Rugged coastline with natural harbors and sheltered coves",
+                heraldry: "An orange dragon on deep blue"
+            },
+            {
+                name: "Dominion of Sand",
+                patron: "Nanna-Sin, Goddess of the Moon",
+                population: "~100,000",
+                description: "A vast desert realm ruled by Grand Caliph Zahir from the coastal jewel of Sahardin. The dominion thrives on rare desert goods and spice trade.",
+                government: "Led by Grand Caliph Zahir",
+                cities: "Sahardin, Zarqath",
+                terrain: "Endless deserts with oases and sand dunes",
+                heraldry: "White crescent moon and star on garnet and blue"
+            },
+            {
+                name: "Dunmar",
+                patron: "Gaoth, god of wind and thunder",
+                population: "~300,000",
+                description: "A kingdom of chivalry and honor, ruled by King Aradun from Lion's Roost. Famous for the annual Tournament of the Lions celebrating martial prowess.",
+                government: "Monarchy under King Aradun",
+                cities: "Lion's Roost, Realm's End, Griffindale",
+                terrain: "Expansive plains and fertile farmlands",
+                heraldry: "A gold rampant lion cross on sky blue"
+            },
+            {
+                name: "Empire of Ix",
+                patron: "Mairon, god of death",
+                population: "~75,000",
+                description: "A land of perpetual twilight ruled by dark forces. Once under mad Emperor Ixalor, now controlled by the Deathshrouds following Vexis the Bloodlord's murder.",
+                government: "Formerly under Vexis the Bloodlord, now uncertain",
+                cities: "Ixador, Sunhaven",
+                terrain: "Boreal forests and frozen taiga",
+                heraldry: "A white serpent on black"
+            },
+            {
+                name: "Frostheim",
+                patron: "Orome, god of war",
+                population: "Unknown",
+                description: "Northern barbarian clans governed by nine Jarls who convene every three years. A land of harsh winters and warrior traditions.",
+                government: "Council of Nine Jarls",
+                cities: "Krakenheim, Ice Keep, Maw of the Gods, WizardBane",
+                terrain: "Frozen tundra and icy mountains",
+                heraldry: "A white polar bear on grey"
+            },
+            {
+                name: "Hearthland",
+                patron: "Teine, goddess of fire and poetry",
+                population: "~100,000",
+                description: "A war-torn kingdom struggling under attacks from the Empire of Ix. King Draegon the Unyielding fights to preserve his fractured realm.",
+                government: "Monarchy under King Draegon the Unyielding",
+                cities: "Nyr's Gate, Ever Reach, Teinara, Dwarvengarde",
+                terrain: "Rolling hills and dense forests",
+                heraldry: "A white owl on vibrant orange"
+            },
+            {
+                name: "RingingHammer",
+                patron: "Dobhainn, god of earth and mountains",
+                population: "~50,000",
+                description: "The legendary Dwarven Stronghold carved within the greatest mountain. Ruled by Dwarven King Thorgrim Stonebeard from an impregnable fortress.",
+                government: "Monarchy under Dwarven King Thorgrim Stonebeard",
+                cities: "RingingHammer (the entire mountain stronghold)",
+                terrain: "Mountainous peaks and underground caverns",
+                heraldry: "An iron crown on brown"
+            },
+            {
+                name: "Silvandor",
+                patron: "Yavanna, goddess of life and nature",
+                population: "~4,000",
+                description: "The enchanted Elven Kingdom deep within Eldertree Forest. Ruled by Lady Lorien, it stands as a bastion of art, spirituality, and harmony with nature.",
+                government: "Monarchy under Queen Lady Lorien",
+                cities: "Silvandor, Vairethil (trading post)",
+                terrain: "Temperate forests with cascading waterfalls",
+                heraldry: "A white tree on green"
+            },
+            {
+                name: "Solandil",
+                patron: "Antru, god of the Day",
+                population: "~250,000",
+                description: "A flourishing center of trade ruled by Queen Catriona the High Monarch. The kingdom celebrates ancient traditions of valor, hospitality, and storytelling.",
+                government: "Monarchy under Queen Catriona the High Monarch",
+                cities: "Sun Port, Stag Harbor, Glen Hollow",
+                terrain: "Fertile plains and rolling hills",
+                heraldry: "A great stag in gold on deep purple"
+            },
+            {
+                name: "Orckrag",
+                patron: "Grund-Wyrgen, mother of monsters",
+                population: "~72% orcs, mixed humanoids",
+                description: "A foreboding land of jagged mountains and volcanic wastelands. Recently, orcish clans have begun uniting under a single banner of a Red Claw.",
+                government: "Fragmented tribes, recently organizing",
+                cities: "Ghor'Mak (War City)",
+                terrain: "High mountains with volcanic activity",
+                heraldry: "A red wolf on yellow"
+            }
+        ];
+
+        // Faction Data (abbreviated for space)
+        const factions = [
+            {
+                name: "Archmagisters of Arcanum",
+                description: "A group of powerful wizards and sorcerers who wield significant magical influence, maintaining control over magical knowledge and artifacts."
+            },
+            {
+                name: "Assassins of the Dark Fold",
+                description: "A lawful evil assassin guild with a deadly induction process. They enforce order and justice through targeted elimination, operating from the shadows."
+            },
+            {
+                name: "Bastards of the Coast",
+                description: "The most organized faction from the Bandit Wilds, led by Bandit Baron Thanegrave. Currently waging war against Hearthland with coordinated raids."
+            },
+            {
+                name: "Court of Whispers",
+                description: "A clandestine network led by the mysterious Raven, controlling politics through secrets, blackmail, and information warfare."
+            },
+            {
+                name: "Crimson Tide",
+                description: "Pirates led by the twisted sorcerer Malyssar the Transmuter, who hunts for flesh to use in grotesque magical experiments."
+            },
+            {
+                name: "Merchant Consortium",
+                description: "An elite alliance of seven Merchant Lords controlling critical trade routes and economic policies across the realms."
+            },
+            {
+                name: "Moonblooded",
+                description: "A secret sect of fallen elves who worship Malthar the Beast Lord, believing lycanthropy is the next stage of elven evolution."
+            },
+            {
+                name: "Order of the Radiant Sword",
+                description: "A knightly order dedicated to protecting the realm from supernatural threats, upholding honor and justice."
+            },
+            {
+                name: "Thieves Guild",
+                description: "A sprawling criminal network led by the mysterious Mr. Lucan, operating satellite branches across multiple cities."
+            },
+            {
+                name: "Druid Circle of the Ancient Grove",
+                description: "Guardians of nature and the wilderness, opposing urbanization and maintaining ecological balance through nature magic."
+            }
+        ];
+
+        // Major Gods Data
+        const gods = [
+            {
+                name: "Antru",
+                title: "God of the Day, King of Elysium",
+                symbol: "The Sun",
+                month: "June",
+                description: "Patron of Solandil, Antru reigns over eternal sunlight with warmth, compassion, and courage to defy darkness.",
+                image: "Antru.JPG"
+            },
+            {
+                name: "Curumo",
+                title: "God of Knowledge, Bards, and Magic-Users",
+                symbol: "The Scroll",
+                month: "December",
+                description: "The god of knowledge and arcane mastery, embodying humanity's insatiable curiosity and thirst for understanding.",
+                image: "Curumo.JPG"
+            },
+            {
+                name: "Dobhainn",
+                title: "God of Earth, Mountains, Blacksmiths, and Hard Work",
+                symbol: "The Anvil",
+                month: "September",
+                description: "Guardian of ancient knowledge and vast riches hidden deep within the earth's embrace.",
+                image: "Dobhainn.JPG"
+            },
+            {
+                name: "Gaoth",
+                title: "God of Wind, Thunder, and Storms",
+                symbol: "Platinum Dragon",
+                month: "April",
+                description: "The Stormlord, protector of light and destroyer of darkness, who struck down Xalara in ancient times.",
+                image: "Gaoth.JPG"
+            },
+            {
+                name: "Grund-Wyrgen",
+                title: "Mother of Demons, Monsters, and Nightmares",
+                symbol: "The Demon Face",
+                month: "March",
+                description: "The Dread Sovereign who embodies the deepest fears and darkest nightmares that haunt mortal minds.",
+                image: "Grund-Wyrgen.JPG"
+            },
+            {
+                name: "Irmo",
+                title: "Goddess of Drinking and Luck, Queen of Thieves",
+                symbol: "Three Keys",
+                month: "November",
+                description: "Born from the whims that shape mortal fortunes, reveling in laughter, tears, and the unpredictability of fate.",
+                image: "Irmo.JPG"
+            },
+            {
+                name: "Mairon",
+                title: "God of Death, Silent Shepherd, King of Underworld",
+                symbol: "A Grinning Skull",
+                month: "January",
+                description: "Reigns over the realm of the dead with solemn and unwavering gaze, feared rather than worshipped.",
+                image: "Mairon.JPG"
+            },
+            {
+                name: "Nanna-Sin",
+                title: "Goddess of the Moon, the Ethereal, and Ghosts",
+                symbol: "The Moon",
+                month: "October",
+                description: "Born from the mystique of the nocturnal sky, guiding mortals through shadows with gentle touch.",
+                image: "Nanna-Sin.JPG"
+            },
+            {
+                name: "Orome",
+                title: "God of War and Wrath, King of Vultures",
+                symbol: "The Axe",
+                month: "February",
+                description: "A deity of tumult and valor, whose favor is as capricious as the winds of war.",
+                image: "Orome.JPG"
+            },
+            {
+                name: "Teine",
+                title: "Goddess of Fire and Poetry, Queen of the Hearth",
+                symbol: "The Flame",
+                month: "August",
+                description: "Embodies transformative fire, lighting the way, warming homes, and protecting families and communities.",
+                image: "Teine.JPG"
+            },
+            {
+                name: "Ulmo",
+                title: "God of Water, Oceans, and Rivers",
+                symbol: "The Trident",
+                month: "July",
+                description: "Emerging from boundless depths, embodies the awe-inspiring mystery and unfathomable power of the ocean.",
+                image: "Ulmo.JPG"
+            },
+            {
+                name: "Yavanna",
+                title: "Goddess of Life and Nature, Queen of Elves",
+                symbol: "Mother Tree",
+                month: "May",
+                description: "Embodies the essence of fertility, growth, and the interconnectedness of all living things.",
+                image: "Yavanna.JPG"
+            }
+        ];
+
+        // Timeline Events
+        const timelineEvents = [
+            {
+                date: "1 AoD",
+                title: "The Age of Dragons Begins",
+                description: "Dragons emerge as dominant forces. Chromatic dragons establish tyrannical kingdoms driven by greed and malice."
+            },
+            {
+                date: "50 AoD",
+                title: "The Elves Arrive",
+                description: "Through ancient portals, elves arrive led by Queen Lorien, establishing Silvandor in the Eldertree Forest."
+            },
+            {
+                date: "250 AoD",
+                title: "The War of Dragons Ends",
+                description: "Gaoth confronts Xalara on Lonely Hill, striking down the Shadow Queen with thunderous lightning. The Divine Pact is established."
+            },
+            {
+                date: "300 AoD",
+                title: "The Coming of the Witch",
+                description: "Isoma Ixal is born, destined to change the world of magic and bring darkness."
+            },
+            {
+                date: "975 AoD",
+                title: "Birth of Ixalor",
+                description: "Isoma gives birth to Ixalor, a half-elf destined to inherit her legacy of darkness."
+            },
+            {
+                date: "1000 AoM",
+                title: "The Age of Man Begins",
+                description: "Feall is born. Human fiefdoms rise and flourish under warring warlords."
+            },
+            {
+                date: "1100 AoM",
+                title: "The Great King",
+                description: "Feall's armies spread, and he is declared the Great King, marking an age of enlightenment."
+            },
+            {
+                date: "1200 AoM",
+                title: "Madness and Corruption",
+                description: "Feall shows signs of madness, possibly under Ixalor's control. The Great Kingdom begins to crumble."
+            },
+            {
+                date: "1285 AoM",
+                title: "Ixalor Betrays the Elves",
+                description: "Ixalor leads an army to attack Silvandor and steal the Light of Anon, binding the demon Malthar."
+            },
+            {
+                date: "1300 AoM",
+                title: "The Great War",
+                description: "Rebellion against Ixalor begins. Nations unite: Frostheim, Arcanum, Dunmar, Solandil, Hearthland, Corsairia, and the Sand Dominion."
+            },
+            {
+                date: "1350 AoM",
+                title: "Imprisonment of Ixalor",
+                description: "The Ragged Rooks imprison Ixalor in the Void Beyond using Halfhag's Soultrap. The Ragged Rooks claim the Black Shield."
+            },
+            {
+                date: "1550 AoM",
+                title: "The First Plague",
+                description: "A devastating plague strikes Dunmar, emptying villages and forcing survivors to seek refuge in secure locations."
+            },
+            {
+                date: "1635 AoM",
+                title: "War of the Southern Sea",
+                description: "Corsairia attacks Dunmar. King Aradun battles at sea while his brother Eldred seizes power and must later be defeated."
+            },
+            {
+                date: "1648 AoM",
+                title: "The Second Plague",
+                description: "Lycanthropy spreads like wildfire. Wizards are blamed and persecuted. Magic becomes scorned and distrusted."
+            },
+            {
+                date: "1649 AoM",
+                title: "The Void Weakens",
+                description: "Horrors from the Void Beyond begin crossing over. Orcs unite under a Red Claw banner. Lord Vexis goes missing."
+            },
+            {
+                date: "1650 AoM",
+                title: "Present Day",
+                description: "The world stands on the brink. Ancient prophecies stir, and heroes must rise to face the gathering darkness."
+            }
+        ];
+
+        // Populate Kingdoms
+        function populateKingdoms() {
+            const grid = document.getElementById('kingdomsGrid');
+            kingdoms.forEach(kingdom => {
+                const card = document.createElement('div');
+                card.className = 'kingdom-card';
+                card.innerHTML = `
+                    <div class="kingdom-image">[Kingdom Image - Coming Soon]</div>
+                    <div class="kingdom-content">
+                        <h3>${kingdom.name}</h3>
+                        <p>${kingdom.description}</p>
+                        <div class="kingdom-detail">
+                            <strong>Patron Deity:</strong> ${kingdom.patron}<br>
+                            <strong>Population:</strong> ${kingdom.population}
+                        </div>
+                    </div>
+                    <div class="kingdom-details">
+                        <h4>Government</h4>
+                        <p>${kingdom.government}</p>
+                        <h4>Major Cities</h4>
+                        <p>${kingdom.cities}</p>
+                        <h4>Terrain</h4>
+                        <p>${kingdom.terrain}</p>
+                        <h4>Heraldry</h4>
+                        <p>${kingdom.heraldry}</p>
+                    </div>
+                `;
+                
+                // Toggle details on click
+                card.addEventListener('click', function() {
+                    const details = this.querySelector('.kingdom-details');
+                    details.classList.toggle('expanded');
+                });
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Populate Factions
+        function populateFactions() {
+            const grid = document.getElementById('factionsGrid');
+            factions.forEach(faction => {
+                const card = document.createElement('div');
+                card.className = 'faction-card';
+                card.innerHTML = `
+                    <h3>${faction.name}</h3>
+                    <p>${faction.description}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Populate Gods
+        function populateGods() {
+            const grid = document.getElementById('godsGrid');
+            gods.forEach(god => {
+                const card = document.createElement('div');
+                card.className = 'god-card';
+                card.innerHTML = `
+                    <img src="${god.image}" alt="${god.name}" class="god-image">
+                    <div class="god-content">
+                        <h3>${god.name}</h3>
+                        <div class="god-title">${god.title}</div>
+                        <p>${god.description}</p>
+                        <div class="god-details">
+                            <div><strong>Holy Symbol:</strong> ${god.symbol}</div>
+                            <div><strong>Holy Month:</strong> ${god.month}</div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Populate Timeline
+        function populateTimeline() {
+            const timeline = document.getElementById('timeline');
+            timelineEvents.forEach(event => {
+                const item = document.createElement('div');
+                item.className = 'timeline-item';
+                item.innerHTML = `
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>${event.title}</h3>
+                        <div class="timeline-date">${event.date}</div>
+                        <p>${event.description}</p>
+                    </div>
+                `;
+                timeline.appendChild(item);
+            });
+        }
+
+        // Tab Switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tab = this.dataset.tab;
+                
+                // Update buttons
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update content
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(tab).classList.add('active');
+            });
+        });
+
+        // Scroll to Top Button
+        const scrollTop = document.getElementById('scrollTop');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        scrollTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Initialize all content
+        populateKingdoms();
+        populateFactions();
+        populateGods();
+        populateTimeline();
+    </script>
+</body>
+</html>
