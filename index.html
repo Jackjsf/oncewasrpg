@@ -7,20 +7,43 @@
     <title>OnceWas RPG | Where Stories Become Adventures</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Make Facebook button extra prominent */
-        .community-card:has(h3:contains("Facebook")) .cta-button.primary {
-            font-size: 1.2rem;
-            padding: 15px 30px;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
-            transform: scale(1.05);
+        /* Align community buttons horizontally at bottom of cards */
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: stretch;
         }
         
-        /* Style for chapter toggle button */
+        .community-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .community-card .cta-button {
+            margin-top: auto;
+            align-self: center;
+        }
+        
+        /* Make all primary buttons in community section same size and aligned */
+        .community-card .cta-button.primary {
+            min-width: 220px;
+            font-weight: 700;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        /* Style for chapter toggle button - match other buttons */
         #chapterToggleBtn {
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 1.1rem;
             padding: 15px 35px;
+            font-family: inherit; /* Match other buttons */
+            font-weight: 700; /* Match other buttons */
+            letter-spacing: normal; /* Match other buttons */
         }
         
         #chapterToggleBtn:hover {
@@ -33,11 +56,13 @@
             transition: opacity 0.5s ease, max-height 0.5s ease;
         }
         
-        /* Make all primary buttons in community section same size */
-        .community-card .cta-button.primary {
-            min-width: 200px;
-            font-weight: 700;
+        /* Responsive: Stack on mobile */
+        @media (max-width: 768px) {
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
         }
+
     </style>
 </head>
 <body>
@@ -409,6 +434,7 @@ In desperation, the mayor put out a call for brave souls willing to venture into
 <p>As his vision adjusted to the dancing shadows, Evron could see more clearly now—the stagnant pool in the southwestern corner, the abandoned rowboat near jagged rock formations, and most promisingly, a wooden treasure chest overturned during the battle. He knelt among the scattered remains. “Strange,” Evron murmured, counting the carcasses. “The mayor said hundreds were taken …Where are the rest of the sheep?” </p>
 <p>Evron’s words trailed off as he stared at the half-devoured remains. His stomach tightened. The ogres hadn’t been alone.</p>
 <p>Hunter ignored him and headed for the chest; its contents scattered across the cave floor. “Perhaps this plan didn't go completely sideways after all,” Hunter said, his spirits rising with each golden coin he counted. </p>
+]</em></p>
                  
                 </div>
                 
@@ -709,7 +735,7 @@ In desperation, the mayor put out a call for brave souls willing to venture into
                 <p>View the OnceWas Core Rules online for free, or get your own copy to download or print.</p>
                 <div class="cta-buttons-group">
                     <a href="core-rules.html" class="cta-button primary large">View Rules Online</a>
-                    <a href="Core_Rule_Book.pdf" download class="cta-button secondary large">Download PDF</a>
+                    <a href="Core_Rule_Book_watermarked.pdf" download class="cta-button secondary large">Download PDF</a>
                     <a href="https://www.amazon.com/dp/YOUR-ASIN-HERE" target="_blank" class="cta-button secondary large">Buy Print Copy</a>
                 </div>
                 <p class="trust-signal">✓ View online free  ✓ Download PDF free  ✓ Compatible with any RPG  ✓ Print version available</p>
@@ -718,7 +744,7 @@ In desperation, the mayor put out a call for brave souls willing to venture into
     </section>
 
     <!-- OnceWas Newsletter Subscribe Section -->
-    <section class="subscribe-section">
+    <section class="subscribe-section" id="newsletter">
         <div class="subscribe-container">
             <div class="subscribe-content">
                 <h2 class="subscribe-title">Join the Adventure</h2>
@@ -1533,7 +1559,7 @@ In desperation, the mayor put out a call for brave souls willing to venture into
                     <h4>Products</h4>
                     <ul>
                         <li><a href="core-rules.html">View Core Rules</a></li>
-                        <li><a href="Core_Rule_Book.pdf" download>Download PDF</a></li>
+                        <li><a href="Core_Rule_Book_watermarked.pdf" download>Download PDF</a></li>
                         <li><a href="#novels">Novels</a></li>
                         <li><a href="#adventures">Adventures</a></li>
                         <li><a href="#shop">Shop</a></li>
