@@ -95,27 +95,39 @@
         }
 
         /* Mobile Navigation Styles */
+        /* Hide any duplicate menu toggles that might be created by external CSS */
+        .nav-container > *:not(.logo):not(.mobile-menu-toggle):not(.nav-links):not(.nav-cta) {
+            display: none !important;
+        }
+        
         .mobile-menu-toggle {
             display: none;
             flex-direction: column;
             cursor: pointer;
             padding: 10px;
-            z-index: 1001;
+            z-index: 1002;
             background: none;
             border: none;
+            position: absolute !important;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            -webkit-tap-highlight-color: transparent;
         }
         
         .mobile-menu-toggle span {
-            width: 25px;
+            width: 30px;
             height: 3px;
             background-color: #d4af37;
-            margin: 3px 0;
+            margin: 4px 0;
             transition: 0.3s;
             border-radius: 3px;
+            display: block;
+            pointer-events: none;
         }
         
         .mobile-menu-toggle.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
+            transform: rotate(-45deg) translate(-6px, 7px);
         }
         
         .mobile-menu-toggle.active span:nth-child(2) {
@@ -123,18 +135,33 @@
         }
         
         .mobile-menu-toggle.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
+            transform: rotate(45deg) translate(-6px, -7px);
         }
         
         /* Ensure header stays on top */
         .header {
-            position: relative;
-            z-index: 100;
+            position: sticky !important;
+            top: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95) !important;
+            backdrop-filter: blur(10px);
+            width: 100%;
         }
         
         .nav-container {
             position: relative;
             z-index: 100;
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            z-index: 1001;
+            position: relative;
         }
 
         /* Mobile Responsive Styles */
@@ -157,6 +184,20 @@
             /* Show mobile menu toggle */
             .mobile-menu-toggle {
                 display: flex !important;
+            }
+            
+            /* Header adjustments */
+            .header {
+                position: sticky;
+                top: 0;
+            }
+            
+            .nav-container {
+                padding: 12px 15px;
+            }
+            
+            .logo-image {
+                max-height: 45px;
             }
             
             /* Hide desktop navigation */
@@ -200,6 +241,17 @@
             
             .nav-cta {
                 display: none !important; /* Hide nav CTA button on mobile */
+            }
+            
+            /* Hero section mobile */
+            .hero {
+                min-height: auto !important;
+                padding: 20px 0 !important;
+            }
+            
+            .hero-content {
+                padding: 40px 20px !important;
+                margin-top: 0 !important;
             }
             
             /* Hero section mobile */
@@ -884,8 +936,8 @@ In desperation, the mayor put out a call for brave souls willing to venture into
                             <div class="option">
                                 <strong>📄 PDF Unwatermarked</strong>
                                 <p>Clean PDF for offline use, no watermark</p>
-                                <p class="price">$12.99</p>
-                                <a href="https://oncewasrpg.gumroad.com/l/oncewas-core-rules?wanted=true" class="cta-button primary" target="_blank" rel="noopener">Buy PDF - $12.99</a>
+                                <p class="price">$19.99</p>
+                                <a href="https://gumroad.com/oncewas" target="_blank" class="text-link">Buy PDF →</a>
                             </div>
                             <div class="option">
                                 <strong>📚 Print Book</strong>
@@ -1932,17 +1984,30 @@ In desperation, the mayor put out a call for brave souls willing to venture into
     <script>
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded - initializing mobile menu');
+            
             // Mobile Menu Toggle
             const mobileMenuToggle = document.getElementById('mobileMenuToggle');
             const navLinks = document.getElementById('navLinks');
             
+            console.log('Mobile menu toggle:', mobileMenuToggle);
+            console.log('Nav links:', navLinks);
+            
             if (mobileMenuToggle && navLinks) {
-                mobileMenuToggle.addEventListener('click', function(e) {
+                // Handle both click and touch events for mobile compatibility
+                const toggleMenu = function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    this.classList.toggle('active');
+                    console.log('Menu toggle clicked');
+                    
+                    mobileMenuToggle.classList.toggle('active');
                     navLinks.classList.toggle('active');
-                });
+                    
+                    console.log('Menu is now:', navLinks.classList.contains('active') ? 'open' : 'closed');
+                };
+                
+                mobileMenuToggle.addEventListener('click', toggleMenu);
+                mobileMenuToggle.addEventListener('touchstart', toggleMenu, { passive: false });
                 
                 // Close mobile menu when clicking on a link
                 const menuLinks = navLinks.querySelectorAll('a');
@@ -1963,6 +2028,8 @@ In desperation, the mayor put out a call for brave souls willing to venture into
                         navLinks.classList.remove('active');
                     }
                 });
+            } else {
+                console.error('Mobile menu elements not found!');
             }
             
             // Hide chapter by default when page loads
