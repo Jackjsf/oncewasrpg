@@ -190,36 +190,44 @@
             .header {
                 position: sticky;
                 top: 0;
+                min-height: 60px;
             }
             
             .nav-container {
                 padding: 12px 15px;
+                min-height: 60px;
             }
             
             .logo-image {
                 max-height: 45px;
             }
             
-            /* Hide desktop navigation */
+            /* CRITICAL: Mobile menu slide-out - very aggressive overrides */
             .nav-links {
                 position: fixed !important;
-                top: 70px !important;
+                top: 60px !important;
                 right: -100% !important;
-                width: 280px !important;
-                height: calc(100vh - 70px) !important;
+                bottom: 0 !important;
+                width: 80% !important;
+                max-width: 300px !important;
+                height: calc(100vh - 60px) !important;
                 background: rgba(26, 26, 26, 0.98) !important;
                 backdrop-filter: blur(10px) !important;
                 flex-direction: column !important;
                 padding: 30px 20px !important;
-                transition: right 0.3s ease !important;
+                transition: right 0.3s ease-in-out !important;
                 border-left: 2px solid #d4af37 !important;
                 overflow-y: auto !important;
-                z-index: 999 !important;
+                z-index: 9999 !important;
                 margin: 0 !important;
+                display: flex !important;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5) !important;
             }
             
+            /* CRITICAL: Show menu when active */
             .nav-links.active {
                 right: 0 !important;
+                display: flex !important;
             }
             
             .nav-links li {
@@ -227,6 +235,7 @@
                 padding: 15px 0 !important;
                 border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
                 list-style: none !important;
+                width: 100% !important;
             }
             
             .nav-links li:last-child {
@@ -237,21 +246,80 @@
                 font-size: 1.1rem !important;
                 display: block !important;
                 padding: 10px !important;
+                color: #d4af37 !important;
+                text-decoration: none !important;
             }
             
             .nav-cta {
-                display: none !important; /* Hide nav CTA button on mobile */
+                display: none !important;
             }
             
-            /* Hero section mobile */
+            /* CRITICAL: Hero section mobile fixes */
             .hero {
-                min-height: auto !important;
-                padding: 20px 0 !important;
+                min-height: calc(100vh - 60px) !important;
+                height: auto !important;
+                padding: 0 !important;
+                display: flex !important;
+                align-items: center !important;
+            }
+            
+            .hero-overlay {
+                width: 100% !important;
+                padding: 40px 0 !important;
             }
             
             .hero-content {
-                padding: 40px 20px !important;
+                padding: 30px 20px !important;
                 margin-top: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .hero-book-cover {
+                max-width: 180px !important;
+                margin: 0 auto 25px !important;
+            }
+            
+            .hero-headline {
+                font-size: 1.8rem !important;
+                margin-bottom: 15px !important;
+                line-height: 1.2 !important;
+            }
+            
+            .hero-subheadline {
+                font-size: 0.95rem !important;
+                margin-bottom: 25px !important;
+                line-height: 1.5 !important;
+            }
+            
+            .hero-buttons {
+                flex-direction: column !important;
+                gap: 12px !important;
+                width: 100% !important;
+                margin-bottom: 20px !important;
+            }
+            
+            .hero-buttons .cta-button {
+                width: 100% !important;
+                text-align: center !important;
+                padding: 14px 20px !important;
+                font-size: 1rem !important;
+                margin: 0 !important;
+            }
+            
+            .hero-tagline {
+                font-size: 0.85rem !important;
+                line-height: 1.4 !important;
+            }
+            
+            /* Prevent body scroll issues */
+            body {
+                overflow-x: hidden !important;
+            }
+            
+            /* Container adjustments */
+            .container {
+                padding: 40px 20px !important;
             }
             
             /* Hero section mobile */
@@ -1984,52 +2052,91 @@ In desperation, the mayor put out a call for brave souls willing to venture into
     <script>
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded - initializing mobile menu');
+            console.log('🎯 OnceWas Mobile Menu Initializing...');
             
             // Mobile Menu Toggle
             const mobileMenuToggle = document.getElementById('mobileMenuToggle');
             const navLinks = document.getElementById('navLinks');
             
-            console.log('Mobile menu toggle:', mobileMenuToggle);
-            console.log('Nav links:', navLinks);
+            console.log('Menu toggle element:', mobileMenuToggle);
+            console.log('Nav links element:', navLinks);
             
             if (mobileMenuToggle && navLinks) {
+                console.log('✅ Menu elements found!');
+                
+                // Create overlay backdrop
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 60px;
+                    left: 0;
+                    width: 100%;
+                    height: calc(100vh - 60px);
+                    background: rgba(0, 0, 0, 0.5);
+                    z-index: 998;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 0.3s ease;
+                `;
+                overlay.id = 'menuOverlay';
+                document.body.appendChild(overlay);
+                
                 // Handle both click and touch events for mobile compatibility
                 const toggleMenu = function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log('Menu toggle clicked');
+                    
+                    const isActive = navLinks.classList.contains('active');
+                    console.log('📱 Menu toggle tapped! Currently:', isActive ? 'OPEN' : 'CLOSED');
                     
                     mobileMenuToggle.classList.toggle('active');
                     navLinks.classList.toggle('active');
                     
-                    console.log('Menu is now:', navLinks.classList.contains('active') ? 'open' : 'closed');
+                    // Toggle overlay
+                    if (!isActive) {
+                        overlay.style.opacity = '1';
+                        overlay.style.pointerEvents = 'auto';
+                        console.log('✅ Opening menu...');
+                    } else {
+                        overlay.style.opacity = '0';
+                        overlay.style.pointerEvents = 'none';
+                        console.log('✅ Closing menu...');
+                    }
+                    
+                    console.log('Menu is now:', navLinks.classList.contains('active') ? 'OPEN ✅' : 'CLOSED ❌');
                 };
                 
                 mobileMenuToggle.addEventListener('click', toggleMenu);
-                mobileMenuToggle.addEventListener('touchstart', toggleMenu, { passive: false });
+                mobileMenuToggle.addEventListener('touchend', toggleMenu, { passive: false });
                 
                 // Close mobile menu when clicking on a link
                 const menuLinks = navLinks.querySelectorAll('a');
+                console.log(`Found ${menuLinks.length} menu links`);
+                
                 menuLinks.forEach(link => {
                     link.addEventListener('click', function() {
+                        console.log('Menu link clicked - closing menu');
                         mobileMenuToggle.classList.remove('active');
                         navLinks.classList.remove('active');
+                        overlay.style.opacity = '0';
+                        overlay.style.pointerEvents = 'none';
                     });
                 });
                 
-                // Close mobile menu when clicking outside
-                document.addEventListener('click', function(event) {
-                    const isClickInsideNav = navLinks.contains(event.target);
-                    const isClickOnToggle = mobileMenuToggle.contains(event.target);
-                    
-                    if (!isClickInsideNav && !isClickOnToggle && navLinks.classList.contains('active')) {
-                        mobileMenuToggle.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    }
+                // Close when clicking overlay
+                overlay.addEventListener('click', function() {
+                    console.log('Overlay clicked - closing menu');
+                    mobileMenuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    overlay.style.opacity = '0';
+                    overlay.style.pointerEvents = 'none';
                 });
+                
+                console.log('✅ Mobile menu fully initialized!');
             } else {
-                console.error('Mobile menu elements not found!');
+                console.error('❌ Mobile menu elements not found!');
+                console.error('Toggle:', mobileMenuToggle);
+                console.error('Nav Links:', navLinks);
             }
             
             // Hide chapter by default when page loads
