@@ -2166,5 +2166,40 @@ In desperation, the mayor put out a call for brave souls willing to venture into
     </script>
     
     <script src="script.js"></script>
+    
+    <!-- Auto-redirect to thank-you page after successful subscription -->
+    <script>
+        // Watch for MailerLite success message, then redirect to thank-you page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Use MutationObserver to detect when success message appears
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    // Check if the success message div is now visible
+                    const successDiv = document.querySelector('.ml-form-successBody.row-success');
+                    if (successDiv && successDiv.style.display !== 'none') {
+                        // Success message is showing! Wait 2 seconds then redirect
+                        console.log('Subscription successful! Redirecting to thank-you page...');
+                        setTimeout(function() {
+                            window.location.href = 'thank-you.html';
+                        }, 2000); // 2 second delay so they see the success message
+                        
+                        // Stop observing once we've triggered the redirect
+                        observer.disconnect();
+                    }
+                });
+            });
+            
+            // Start observing the newsletter form for changes
+            const formContainer = document.querySelector('#mlb2-33385710');
+            if (formContainer) {
+                observer.observe(formContainer, {
+                    attributes: true,
+                    childList: true,
+                    subtree: true,
+                    attributeFilter: ['style']
+                });
+            }
+        });
+    </script>
 </body>
 </html>
