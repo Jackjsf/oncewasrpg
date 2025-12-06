@@ -63,75 +63,6 @@
             }
         }
 
-        /* Video Hero Section Styles */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .hero-video-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-        
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translateX(-50%);
-            object-fit: cover;
-            object-position: center 25%;
-        }
-        
-        .hero-fallback-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 25%;
-            z-index: -3;
-        }
-        
-        .hero-dark-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0.6) 0%,
-                rgba(0, 0, 0, 0.4) 50%,
-                rgba(0, 0, 0, 0.7) 100%
-            );
-            z-index: -1;
-        }
-        
-        /* Hide video on mobile (save bandwidth, better UX) */
-        @media (max-width: 768px) {
-            .hero-video {
-                display: none;
-            }
-            
-            .hero-fallback-image {
-                z-index: -2;
-            }
-        }
-
         /* Social Media Icons Styling */
         .social-links {
             display: flex;
@@ -161,63 +92,6 @@
         .social-links a svg {
             width: 20px;
             height: 20px;
-        }
-
-        /* Bio Pic - 50% smaller with ornate fantasy frame */
-        .creator-image {
-            width: 50% !important;
-            height: auto !important;
-            border-radius: 15px;
-            /* Ornate double border with gold accent */
-            border: 8px solid #2a1810;
-            box-shadow: 
-                0 0 0 3px #d4af37,
-                0 0 0 6px #2a1810,
-                0 15px 40px rgba(0, 0, 0, 0.6),
-                inset 0 0 30px rgba(212, 175, 55, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
-        }
-        
-        .creator-image:hover {
-            transform: scale(1.05);
-            box-shadow: 
-                0 0 0 3px #d4af37,
-                0 0 0 6px #2a1810,
-                0 20px 50px rgba(0, 0, 0, 0.7),
-                0 0 30px rgba(212, 175, 55, 0.3),
-                inset 0 0 40px rgba(212, 175, 55, 0.2);
-        }
-        
-        .creator-photo {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Adventure buttons - side by side */
-        .adventure-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        
-        .adventure-buttons .cta-button {
-            flex: 1;
-            min-width: 150px;
-            text-align: center;
-        }
-        
-        @media (max-width: 768px) {
-            .adventure-buttons {
-                flex-direction: column;
-            }
-            .adventure-buttons .cta-button {
-                width: 100%;
-            }
         }
 
         /* Mobile Navigation Styles */
@@ -649,30 +523,11 @@
         </nav>
     </header>
 
-    <!-- Hero Section with Video Background -->
+    <!-- Hero Section -->
     <section class="hero">
-        <!-- Video Background Container -->
-        <div class="hero-video-container">
-            <!-- Fallback Image (loads first, shows on mobile) -->
-            <img src="assets/images/Ixalor_in_flames_with_sword.jpg" 
-                 alt="Ixalor, the Immortal Orc" 
-                 class="hero-fallback-image">
-            
-            <!-- Video (autoplay on desktop) -->
-            <video class="hero-video" 
-                   autoplay 
-                   muted 
-                   loop 
-                   playsinline
-                   poster="assets/images/Ixalor_in_flames_with_sword.jpg">
-                <source src="assets/videos/Ixalor_Mirror_Loop.mp4" type="video/mp4">
-            </video>
+        <div class="hero-background">
+            <img src="world_map_RW.jpg" alt="OnceWas World Map" class="hero-map">
         </div>
-        
-        <!-- Dark Overlay for text readability -->
-        <div class="hero-dark-overlay"></div>
-        
-        <!-- Hero Content -->
         <div class="hero-overlay">
             <div class="hero-content">
                 <div class="hero-book-cover">
@@ -1072,10 +927,7 @@
                     <div class="adventure-status">
                         <span class="status-badge available">Available Now</span>
                     </div>
-                    <div class="adventure-buttons">
-                        <a href="https://www.drivethrurpg.com/en/product/545358/a1-ogres-of-worros-woods?affiliate_id=237690" target="_blank" rel="noopener" class="cta-button primary">Buy on DriveThruRPG</a>
-                        <a href="https://oncewasrpg.itch.io/a1-ogres-of-worros-woods" target="_blank" rel="noopener" class="cta-button primary">Buy on itch.io</a>
-                    </div>
+                    <a href="https://www.drivethrurpg.com/en/product/545358/a1-ogres-of-worros-woods?affiliate_id=237690" target="_blank" rel="noopener" class="cta-button primary">Buy on DriveThruRPG</a>
                 </div>
                 
                 <div class="adventure-card available">
@@ -1088,10 +940,7 @@
                     <div class="adventure-status">
                         <span class="status-badge available">Available Now</span>
                     </div>
-                    <div class="adventure-buttons">
-                        <a href="https://www.drivethrurpg.com/en/product/547395/a2-the-meldorin-winery?affiliate_id=237690" target="_blank" rel="noopener" class="cta-button primary">Buy on DriveThruRPG</a>
-                        <a href="https://oncewasrpg.itch.io/a2-the-meldorin-winery" target="_blank" rel="noopener" class="cta-button primary">Buy on itch.io</a>
-                    </div>
+                    <a href="https://www.drivethrurpg.com/en/product/547395/a2-the-meldorin-winery?affiliate_id=237690" target="_blank" rel="noopener" class="cta-button primary">Buy on DriveThruRPG</a>
                 </div>
                 
                 <div class="adventure-card">
@@ -1102,12 +951,9 @@
                     <p class="level-info">For 4-6 characters of 3rd level</p>
                     <p>An ancient tower holds a dark secret and an undying guardian.</p>
                     <div class="adventure-status">
-                        <span class="status-badge available">Available Now</span>
+                        <span class="status-badge coming-soon">Coming Soon</span>
                     </div>
-                    <div class="adventure-buttons">
-                        <a href="https://www.drivethrurpg.com/product/YOUR_A3_PRODUCT_ID?affiliate_id=237690" target="_blank" rel="noopener" class="cta-button primary">Buy on DriveThruRPG</a>
-                        <a href="https://oncewasrpg.itch.io/a3-tower-of-the-immortal-orc" target="_blank" rel="noopener" class="cta-button primary">Buy on itch.io</a>
-                    </div>
+                    <a href="#newsletter" class="text-link">Get Notified →</a>
                 </div>
                 
                 <div class="adventure-card">
@@ -1118,12 +964,9 @@
                     <p class="level-info">For 4-6 characters of 4th level</p>
                     <p>Terror stalks the mountains under the full moon.</p>
                     <div class="adventure-status">
-                        <span class="status-badge available">Available Now</span>
+                        <span class="status-badge coming-soon">Coming Soon</span>
                     </div>
-                    <div class="adventure-buttons">
-                        <a href="https://www.drivethrurpg.com/product/YOUR_A4_PRODUCT_ID?affiliate_id=237690" target="_blank" rel="noopener" class="cta-button primary">Buy on DriveThruRPG</a>
-                        <a href="https://oncewasrpg.itch.io/a4-werewolves-of-orckrag" target="_blank" rel="noopener" class="cta-button primary">Buy on itch.io</a>
-                    </div>
+                    <a href="#newsletter" class="text-link">Get Notified →</a>
                 </div>
                 
                 <div class="adventure-card">
@@ -1179,14 +1022,9 @@
                                 <a href="core-rules.html" class="text-link">View Rules →</a>
                             </div>
                             <div class="option">
-                                <strong>📄 PDF Unwatermarked - DriveThruRPG</strong>
+                                <strong>📄 PDF Unwatermarked</strong>
                                 <p>Clean PDF for offline use, no watermark</p>
                                 <a href="https://www.drivethrurpg.com/en/product/545234/oncewas-core-rule-book" target="_blank" class="text-link">Buy on DriveThruRPG →</a>
-                            </div>
-                            <div class="option">
-                                <strong>📄 PDF Unwatermarked - itch.io</strong>
-                                <p>Clean PDF for offline use, no watermark</p>
-                                <a href="https://oncewasrpg.itch.io/oncewas-core-rule-book" target="_blank" class="text-link">Buy on itch.io →</a>
                             </div>
                             <div class="option">
                                 <strong>📚 Print Book</strong>
