@@ -177,6 +177,7 @@
                 inset 0 0 30px rgba(212, 175, 55, 0.1);
             transition: all 0.4s ease;
             position: relative;
+            cursor: pointer;
         }
         
         .creator-image:hover {
@@ -194,6 +195,41 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        
+        /* Werewolf video - positioned and cropped to match photo face area */
+        .werewolf-video {
+            position: absolute !important;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50% !important;
+            height: auto !important;
+            object-fit: cover;
+            object-position: center 30%; /* Crop to focus on upper portion (face area) */
+            aspect-ratio: 1 / 1; /* Make it square to match photo */
+        }
+        
+        .werewolf-active {
+            animation: werewolfGlow 0.3s ease-in-out;
+        }
+        
+        @keyframes werewolfGlow {
+            0%, 100% {
+                box-shadow: 
+                    0 0 0 3px #d4af37,
+                    0 0 0 6px #2a1810,
+                    0 15px 40px rgba(0, 0, 0, 0.6),
+                    inset 0 0 30px rgba(212, 175, 55, 0.1);
+            }
+            50% {
+                box-shadow: 
+                    0 0 0 3px #ff6b6b,
+                    0 0 0 6px #2a1810,
+                    0 20px 50px rgba(255, 0, 0, 0.7),
+                    0 0 40px rgba(255, 107, 107, 0.6),
+                    inset 0 0 50px rgba(255, 107, 107, 0.3);
+            }
         }
 
         /* Adventure buttons - side by side */
@@ -700,7 +736,10 @@
             <div class="two-column-layout">
                 <div class="image-column">
                     <div class="creator-photo">
-                        <img src="Jack-Frank-Photo.jpg" alt="Jack Frank, Creator of OnceWas" class="creator-image">
+                        <img src="Jack-Frank-Photo.jpg" alt="Jack Frank, Creator of OnceWas" class="creator-image" id="creatorPhoto">
+                        <video id="werewolfVideo" class="creator-image werewolf-video" style="display: none;" muted playsinline>
+                            <source src="werewolf.mp4" type="video/mp4">
+                        </video>
                     </div>
                 </div>
                 
@@ -2349,6 +2388,64 @@
     </script>
     
     <script src="script.js"></script>
+    
+    <!-- Werewolf Transformation Easter Egg -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const photo = document.getElementById('creatorPhoto');
+            const video = document.getElementById('werewolfVideo');
+            let isTransformed = false;
+            
+            if (photo && video) {
+                // Click handler for transformation
+                photo.addEventListener('click', function() {
+                    if (!isTransformed) {
+                        transformToWerewolf();
+                    }
+                });
+                
+                video.addEventListener('click', function() {
+                    if (isTransformed) {
+                        transformToWerewolf();
+                    }
+                });
+                
+                // Transform function
+                function transformToWerewolf() {
+                    if (!isTransformed) {
+                        // Transform to werewolf
+                        photo.style.display = 'none';
+                        video.style.display = 'block';
+                        video.classList.add('werewolf-active');
+                        
+                        // Play video from start
+                        video.currentTime = 0;
+                        video.play().catch(e => console.log('Autoplay prevented:', e));
+                        
+                        isTransformed = true;
+                        
+                        // Auto-revert after video ends
+                        video.addEventListener('ended', function() {
+                            setTimeout(revertToHuman, 500);
+                        }, { once: true });
+                        
+                    } else {
+                        // Manual revert
+                        revertToHuman();
+                    }
+                }
+                
+                // Revert to human
+                function revertToHuman() {
+                    video.pause();
+                    video.style.display = 'none';
+                    video.classList.remove('werewolf-active');
+                    photo.style.display = 'block';
+                    isTransformed = false;
+                }
+            }
+        });
+    </script>
     
     <!-- Auto-redirect to thank-you page after successful subscription -->
     <script>
