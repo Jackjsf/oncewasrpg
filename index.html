@@ -187,6 +187,9 @@
             transition: all 0.4s ease;
             cursor: pointer;
             display: block;
+            position: relative;
+            z-index: 2;
+            opacity: 1;
         }
         
         .creator-image:hover {
@@ -208,6 +211,23 @@
             height: 100% !important;
             object-fit: cover;
             object-position: center 30%; /* Crop to focus on upper portion (face area) */
+            z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        /* When video is active */
+        .werewolf-video.active {
+            z-index: 3;
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* When photo is hidden */
+        .creator-image.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
         
         .werewolf-active {
@@ -737,7 +757,7 @@
                 <div class="image-column">
                     <div class="creator-photo">
                         <img src="Jack-Frank-Photo.jpg" alt="Jack Frank, Creator of OnceWas" class="creator-image" id="creatorPhoto">
-                        <video id="werewolfVideo" class="creator-image werewolf-video" style="display: none;" muted playsinline>
+                        <video id="werewolfVideo" class="creator-image werewolf-video" muted playsinline>
                             <source src="werewolf.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -2406,7 +2426,7 @@
                 
                 video.addEventListener('click', function() {
                     if (isTransformed) {
-                        transformToWerewolf();
+                        revertToHuman();
                     }
                 });
                 
@@ -2414,8 +2434,8 @@
                 function transformToWerewolf() {
                     if (!isTransformed) {
                         // Transform to werewolf
-                        photo.style.display = 'none';
-                        video.style.display = 'block';
+                        photo.classList.add('hidden');
+                        video.classList.add('active');
                         video.classList.add('werewolf-active');
                         
                         // Play video from start
@@ -2428,19 +2448,15 @@
                         video.addEventListener('ended', function() {
                             setTimeout(revertToHuman, 500);
                         }, { once: true });
-                        
-                    } else {
-                        // Manual revert
-                        revertToHuman();
                     }
                 }
                 
                 // Revert to human
                 function revertToHuman() {
                     video.pause();
-                    video.style.display = 'none';
+                    video.classList.remove('active');
                     video.classList.remove('werewolf-active');
-                    photo.style.display = 'block';
+                    photo.classList.remove('hidden');
                     isTransformed = false;
                 }
             }
