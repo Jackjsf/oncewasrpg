@@ -164,8 +164,17 @@
         }
 
         /* Bio Pic - 50% smaller with ornate fantasy frame */
+        .creator-photo {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            margin: 0 auto;
+        }
+        
         .creator-image {
-            width: 50% !important;
+            width: 100% !important;
             height: auto !important;
             border-radius: 15px;
             /* Ornate double border with gold accent */
@@ -176,8 +185,8 @@
                 0 15px 40px rgba(0, 0, 0, 0.6),
                 inset 0 0 30px rgba(212, 175, 55, 0.1);
             transition: all 0.4s ease;
-            position: relative;
             cursor: pointer;
+            display: block;
         }
         
         .creator-image:hover {
@@ -190,24 +199,15 @@
                 inset 0 0 40px rgba(212, 175, 55, 0.2);
         }
         
-        .creator-photo {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        /* Werewolf video - positioned and cropped to match photo face area */
+        /* Werewolf video - positioned exactly on top of photo */
         .werewolf-video {
             position: absolute !important;
             top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50% !important;
-            height: auto !important;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
             object-fit: cover;
             object-position: center 30%; /* Crop to focus on upper portion (face area) */
-            aspect-ratio: 1 / 1; /* Make it square to match photo */
         }
         
         .werewolf-active {
