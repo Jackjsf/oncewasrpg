@@ -417,12 +417,14 @@
                 margin: 0 !important;
                 display: flex !important;
                 box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5) !important;
+                pointer-events: none !important;
             }
             
             /* CRITICAL: Show menu when active */
             .nav-links.active {
                 right: 0 !important;
                 display: flex !important;
+                pointer-events: auto !important;
             }
             
             .nav-links li {
@@ -2414,10 +2416,11 @@
                     width: 100%;
                     height: calc(100vh - 60px);
                     background: rgba(0, 0, 0, 0.5);
-                    z-index: 998;
+                    z-index: -1;
                     opacity: 0;
+                    visibility: hidden;
                     pointer-events: none;
-                    transition: opacity 0.3s ease;
+                    transition: opacity 0.3s ease, visibility 0s linear 0.3s, z-index 0s linear 0.3s;
                 `;
                 overlay.id = 'menuOverlay';
                 document.body.appendChild(overlay);
@@ -2435,21 +2438,21 @@
                     
                     // Toggle overlay
                     if (!isActive) {
+                        overlay.style.transition = 'opacity 0.3s ease';
+                        overlay.style.zIndex = '998';
+                        overlay.style.visibility = 'visible';
                         overlay.style.opacity = '1';
                         overlay.style.pointerEvents = 'auto';
                         document.body.style.overflow = 'hidden'; // Prevent background scroll
                         console.log('✅ Opening menu...');
                     } else {
+                        overlay.style.transition = 'opacity 0.3s ease, visibility 0s linear 0.3s, z-index 0s linear 0.3s';
                         overlay.style.opacity = '0';
+                        overlay.style.visibility = 'hidden';
+                        overlay.style.zIndex = '-1';
                         overlay.style.pointerEvents = 'none';
-                        overlay.style.display = 'none'; // Force hide on iOS
                         document.body.style.overflow = ''; // Restore scroll
                         console.log('✅ Closing menu...');
-                        
-                        // Ensure overlay is really gone (iOS fix)
-                        setTimeout(() => {
-                            overlay.style.display = 'block';
-                        }, 350);
                     }
                     
                     console.log('Menu is now:', navLinks.classList.contains('active') ? 'OPEN ✅' : 'CLOSED ❌');
@@ -2470,16 +2473,13 @@
                         // Close menu first
                         mobileMenuToggle.classList.remove('active');
                         navLinks.classList.remove('active');
+                        overlay.style.transition = 'opacity 0.3s ease, visibility 0s linear 0.3s, z-index 0s linear 0.3s';
                         overlay.style.opacity = '0';
+                        overlay.style.visibility = 'hidden';
+                        overlay.style.zIndex = '-1';
                         overlay.style.pointerEvents = 'none';
-                        overlay.style.display = 'none'; // Force hide on iOS
                         document.body.style.overflow = ''; // Unlock scroll
                         console.log('✅ Menu closed');
-                        
-                        // Restore overlay display after animation
-                        setTimeout(() => {
-                            overlay.style.display = 'block';
-                        }, 350);
                         
                         // If it's a hash link (internal navigation)
                         if (href && href.startsWith('#')) {
@@ -2520,15 +2520,12 @@
                     console.log('Overlay clicked - closing menu');
                     mobileMenuToggle.classList.remove('active');
                     navLinks.classList.remove('active');
+                    overlay.style.transition = 'opacity 0.3s ease, visibility 0s linear 0.3s, z-index 0s linear 0.3s';
                     overlay.style.opacity = '0';
+                    overlay.style.visibility = 'hidden';
+                    overlay.style.zIndex = '-1';
                     overlay.style.pointerEvents = 'none';
-                    overlay.style.display = 'none'; // Force hide on iOS
                     document.body.style.overflow = ''; // Unlock scroll
-                    
-                    // Restore overlay display after animation
-                    setTimeout(() => {
-                        overlay.style.display = 'block';
-                    }, 350);
                 });
                 
                 console.log('✅ Mobile menu fully initialized!');
