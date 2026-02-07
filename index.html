@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Experience the unique fusion of tabletop RPG and epic fantasy novels. Read the Odd Company's story, then play their adventures at your table with simplified d20 mechanics.">
+    <meta name="description" content="Experience the unique fusion of tabletop RPG and epic fantasy novels. Read the Odd Company's story, then play their adventures at your table with simplified d20 mechanics. 7 adventure modules available and coming soon.">
     <title>OnceWas RPG | Where Stories Become Adventures</title>
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -679,6 +679,71 @@
             }
         }
 
+        /* Coming Soon Adventure Card Styles */
+        .adventure-card.coming-soon {
+            position: relative;
+        }
+        
+        .coming-soon-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(106, 27, 154, 0.7) 0%, rgba(142, 45, 226, 0.7) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px 8px 0 0;
+            z-index: 2;
+        }
+        
+        .coming-soon-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .status-badge.coming-soon {
+            background: linear-gradient(135deg, #6a1b9a 0%, #8e2de2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(142, 45, 226, 0.4);
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(142, 45, 226, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(142, 45, 226, 0.8);
+            }
+        }
+        
+        .cta-button.disabled {
+            background: #666;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .cta-button.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
     </style>
 </head>
 <body>
@@ -1217,7 +1282,7 @@
                     </div>
                 </div>
                 
-                <div class="adventure-card">
+                <div class="adventure-card available">
                     <div class="adventure-image">
                         <img src="A6-Beneath_the_City_of_Keys.jpg" alt="Beneath the City of Keys Cover" style="width: 100%; height: auto;">
                     </div>
@@ -1230,6 +1295,25 @@
                     <div class="adventure-buttons">
                         <a href="https://www.drivethrurpg.com/en/product/556215/a6-beneath-the-city-of-keys?affiliate_id=237690" target="_blank" rel="noopener" class="cta-button primary">Buy on DriveThruRPG</a>
                         <a href="https://oncewasrpg.itch.io/a6-beneath-the-city-of-keys" target="_blank" rel="noopener" class="cta-button primary">Buy on itch.io</a>
+                    </div>
+                </div>
+                
+                <div class="adventure-card coming-soon">
+                    <div class="adventure-image">
+                        <img src="Drell_s_Mine_Cover.jpg" alt="The Witch of Drell's Mine Cover" style="width: 100%; height: auto;">
+                        <div class="coming-soon-overlay">
+                            <span class="coming-soon-text">Coming March 2025</span>
+                        </div>
+                    </div>
+                    <h3>A7: The Witch of Drell's Mine</h3>
+                    <p class="level-info">For 4-6 characters of 6-8th level</p>
+                    <p>Dragon Sickness grips Realm's End. Red-tinged gold bearing Drell's face emerges from cursed mines. The unfortunate dwarves were cursed by gold stained red with Xalara's gore!</p>
+                    <div class="adventure-status">
+                        <span class="status-badge coming-soon">Coming March 2025</span>
+                    </div>
+                    <div class="adventure-buttons">
+                        <button class="cta-button disabled" disabled>Coming Soon</button>
+                        <a href="#newsletter" class="cta-button primary">Get Launch Notification</a>
                     </div>
                 </div>
             </div>
