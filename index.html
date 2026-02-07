@@ -339,7 +339,7 @@
         
         @media (max-width: 768px) {
             section {
-                scroll-margin-top: 70px;
+                scroll-margin-top: 100px;
             }
         }
         
@@ -2455,12 +2455,31 @@
                 console.log(`Found ${menuLinks.length} menu links`);
                 
                 menuLinks.forEach(link => {
-                    link.addEventListener('click', function() {
+                    link.addEventListener('click', function(e) {
                         console.log('Menu link clicked - closing menu');
+                        
+                        // Close menu
                         mobileMenuToggle.classList.remove('active');
                         navLinks.classList.remove('active');
                         overlay.style.opacity = '0';
                         overlay.style.pointerEvents = 'none';
+                        
+                        // If it's a hash link (internal navigation), add smooth scroll
+                        if (link.getAttribute('href').startsWith('#')) {
+                            e.preventDefault();
+                            const targetId = link.getAttribute('href');
+                            const targetElement = document.querySelector(targetId);
+                            
+                            if (targetElement) {
+                                // Small delay to let menu close first
+                                setTimeout(() => {
+                                    targetElement.scrollIntoView({ 
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }, 300); // Wait for menu close animation
+                            }
+                        }
                     });
                 });
                 
