@@ -2437,11 +2437,19 @@
                     if (!isActive) {
                         overlay.style.opacity = '1';
                         overlay.style.pointerEvents = 'auto';
+                        document.body.style.overflow = 'hidden'; // Prevent background scroll
                         console.log('✅ Opening menu...');
                     } else {
                         overlay.style.opacity = '0';
                         overlay.style.pointerEvents = 'none';
+                        overlay.style.display = 'none'; // Force hide on iOS
+                        document.body.style.overflow = ''; // Restore scroll
                         console.log('✅ Closing menu...');
+                        
+                        // Ensure overlay is really gone (iOS fix)
+                        setTimeout(() => {
+                            overlay.style.display = 'block';
+                        }, 350);
                     }
                     
                     console.log('Menu is now:', navLinks.classList.contains('active') ? 'OPEN ✅' : 'CLOSED ❌');
@@ -2464,7 +2472,14 @@
                         navLinks.classList.remove('active');
                         overlay.style.opacity = '0';
                         overlay.style.pointerEvents = 'none';
+                        overlay.style.display = 'none'; // Force hide on iOS
+                        document.body.style.overflow = ''; // Unlock scroll
                         console.log('✅ Menu closed');
+                        
+                        // Restore overlay display after animation
+                        setTimeout(() => {
+                            overlay.style.display = 'block';
+                        }, 350);
                         
                         // If it's a hash link (internal navigation)
                         if (href && href.startsWith('#')) {
@@ -2476,18 +2491,23 @@
                             if (targetElement) {
                                 console.log('✅ Target element found!', targetElement);
                                 
-                                // Wait for menu to close, then scroll
+                                // iOS Safari workaround - use instant scroll, not smooth
                                 setTimeout(() => {
                                     console.log('📜 Scrolling to element...');
-                                    const yOffset = -100; // Offset for sticky header
-                                    const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
                                     
+                                    // Calculate position with offset for header
+                                    const headerOffset = 100;
+                                    const elementPosition = targetElement.getBoundingClientRect().top;
+                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                    
+                                    // Use instant scroll for iOS reliability
                                     window.scrollTo({
-                                        top: y,
-                                        behavior: 'smooth'
+                                        top: offsetPosition,
+                                        behavior: 'auto' // Changed from 'smooth' for iOS
                                     });
-                                    console.log('✅ Scrolled to position:', y);
-                                }, 350);
+                                    
+                                    console.log('✅ Scrolled to position:', offsetPosition);
+                                }, 400);
                             } else {
                                 console.error('❌ Target element NOT found for:', targetId);
                             }
@@ -2502,6 +2522,13 @@
                     navLinks.classList.remove('active');
                     overlay.style.opacity = '0';
                     overlay.style.pointerEvents = 'none';
+                    overlay.style.display = 'none'; // Force hide on iOS
+                    document.body.style.overflow = ''; // Unlock scroll
+                    
+                    // Restore overlay display after animation
+                    setTimeout(() => {
+                        overlay.style.display = 'block';
+                    }, 350);
                 });
                 
                 console.log('✅ Mobile menu fully initialized!');
