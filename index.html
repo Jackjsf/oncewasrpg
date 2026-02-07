@@ -332,6 +332,17 @@
             width: 100%;
         }
         
+        /* Add scroll margin to all sections so sticky header doesn't cover content */
+        section {
+            scroll-margin-top: 80px;
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                scroll-margin-top: 70px;
+            }
+        }
+        
         .nav-container {
             position: relative;
             z-index: 100;
