@@ -2468,9 +2468,34 @@
             if (mobileMenuToggle && navLinks) {
                 console.log('✅ Menu elements found!');
                 
-                // Handle both click and touch events for mobile compatibility
+                // Declare overlay variable
                 let overlay;
                 
+                // Define close function FIRST
+                const closeMenuAndDestroyOverlay = function() {
+                    console.log('Closing menu and destroying overlay');
+                    mobileMenuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    
+                    // FORCE menu gone
+                    navLinks.style.right = '-100%';
+                    navLinks.style.display = 'none';
+                    navLinks.style.visibility = 'hidden';
+                    navLinks.style.zIndex = '-9999';
+                    
+                    // Remove overlay from DOM
+                    if (overlay && overlay.parentNode) {
+                        overlay.parentNode.removeChild(overlay);
+                    }
+                    
+                    document.body.style.overflow = '';
+                    void navLinks.offsetHeight;
+                    
+                    // Recreate overlay for next use
+                    setTimeout(createOverlay, 500);
+                };
+                
+                // Define create function SECOND
                 const createOverlay = function() {
                     overlay = document.createElement('div');
                     overlay.style.cssText = `
@@ -2484,73 +2509,46 @@
                         opacity: 0;
                         visibility: hidden;
                         pointer-events: none;
-                        transition: opacity 0.3s ease, visibility 0s linear 0.3s, z-index 0s linear 0.3s;
+                        transition: opacity 0.3s ease;
                     `;
                     overlay.id = 'menuOverlay';
                     document.body.appendChild(overlay);
                     
-                    // Attach click handler to new overlay
+                    // Attach click handler
                     overlay.addEventListener('click', closeMenuAndDestroyOverlay);
                 };
                 
                 // Create initial overlay
                 createOverlay();
                 
-                // Handle both click and touch events for mobile compatibility
-                const closeMenuAndDestroyOverlay = function() {
-                    console.log('Closing menu and destroying overlay');
-                    mobileMenuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    
-                    // FORCE everything gone
-                    navLinks.style.right = '-100%';
-                    navLinks.style.display = 'none';
-                    navLinks.style.visibility = 'hidden';
-                    navLinks.style.zIndex = '-9999';
-                    
-                    // Remove overlay from DOM
-                    if (overlay && overlay.parentNode) {
-                        overlay.parentNode.removeChild(overlay);
-                    }
-                    
-                    document.body.style.overflow = '';
-                    
-                    // Force reflow
-                    void navLinks.offsetHeight;
-                    
-                    // Recreate overlay for next use
-                    setTimeout(createOverlay, 500);
-                };
-                
+                // Toggle menu function
                 const toggleMenu = function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
                     const isActive = navLinks.classList.contains('active');
-                    console.log('📱 Menu toggle tapped! Currently:', isActive ? 'OPEN' : 'CLOSED');
+                    console.log('📱 Menu toggle:', isActive ? 'CLOSING' : 'OPENING');
                     
                     if (!isActive) {
-                        // OPENING MENU
+                        // OPEN MENU
                         mobileMenuToggle.classList.add('active');
                         navLinks.classList.add('active');
+                        navLinks.style.display = 'flex';
+                        navLinks.style.right = '0';
+                        navLinks.style.visibility = 'visible';
+                        navLinks.style.zIndex = '9999';
                         
                         if (overlay) {
-                            overlay.style.transition = 'opacity 0.3s ease';
-                            overlay.style.display = 'block';
                             overlay.style.zIndex = '998';
                             overlay.style.visibility = 'visible';
                             overlay.style.opacity = '1';
                             overlay.style.pointerEvents = 'auto';
                         }
                         document.body.style.overflow = 'hidden';
-                        console.log('✅ Opening menu...');
                     } else {
-                        // CLOSING MENU
+                        // CLOSE MENU
                         closeMenuAndDestroyOverlay();
-                        console.log('✅ Closing menu - NUCLEAR');
                     }
-                    
-                    console.log('Menu is now:', navLinks.classList.contains('active') ? 'OPEN ✅' : 'CLOSED ❌');
                 };
                 
                 mobileMenuToggle.addEventListener('click', toggleMenu);
