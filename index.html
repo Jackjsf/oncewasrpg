@@ -354,9 +354,25 @@
         
         /* Make sure all sections are always visible above closed menu elements */
         /* This fixes conflict with styles.css where menu elements were covering content */
-        section {
+        
+        /* NUCLEAR OPTION: Force ALL sections visible with extreme z-index */
+        section:not(.hero) {
             position: relative !important;
-            z-index: 10 !important;
+            z-index: 50 !important;
+            background-color: transparent !important;
+        }
+        
+        /* Adventures section gets MAXIMUM priority */
+        .adventures-section {
+            position: relative !important;
+            z-index: 100 !important;
+            background-color: #1a1a1a !important;
+            min-height: 500px !important;
+        }
+        
+        .adventures-section * {
+            position: relative !important;
+            z-index: 101 !important;
         }
         
         /* Main body content above everything when menu closed */
@@ -364,7 +380,7 @@
         body > main,
         .container {
             position: relative !important;
-            z-index: 10 !important;
+            z-index: 50 !important;
         }
         
         /* But menu when open needs to be above sections */
@@ -375,6 +391,12 @@
         /* Overlay when active */
         #menuOverlay {
             z-index: 998 !important;
+        }
+        
+        /* Make sure nothing covers content after menu closes */
+        body::after,
+        body::before {
+            display: none !important;
         }
         
         .nav-container {
@@ -2446,25 +2468,60 @@
             if (mobileMenuToggle && navLinks) {
                 console.log('✅ Menu elements found!');
                 
-                // Create overlay backdrop
-                const overlay = document.createElement('div');
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 60px;
-                    left: 0;
-                    width: 100%;
-                    height: calc(100vh - 60px);
-                    background: rgba(0, 0, 0, 0.5);
-                    z-index: -1;
-                    opacity: 0;
-                    visibility: hidden;
-                    pointer-events: none;
-                    transition: opacity 0.3s ease, visibility 0s linear 0.3s, z-index 0s linear 0.3s;
-                `;
-                overlay.id = 'menuOverlay';
-                document.body.appendChild(overlay);
+                // Handle both click and touch events for mobile compatibility
+                let overlay;
+                
+                const createOverlay = function() {
+                    overlay = document.createElement('div');
+                    overlay.style.cssText = `
+                        position: fixed;
+                        top: 60px;
+                        left: 0;
+                        width: 100%;
+                        height: calc(100vh - 60px);
+                        background: rgba(0, 0, 0, 0.5);
+                        z-index: -1;
+                        opacity: 0;
+                        visibility: hidden;
+                        pointer-events: none;
+                        transition: opacity 0.3s ease, visibility 0s linear 0.3s, z-index 0s linear 0.3s;
+                    `;
+                    overlay.id = 'menuOverlay';
+                    document.body.appendChild(overlay);
+                    
+                    // Attach click handler to new overlay
+                    overlay.addEventListener('click', closeMenuAndDestroyOverlay);
+                };
+                
+                // Create initial overlay
+                createOverlay();
                 
                 // Handle both click and touch events for mobile compatibility
+                const closeMenuAndDestroyOverlay = function() {
+                    console.log('Closing menu and destroying overlay');
+                    mobileMenuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    
+                    // FORCE everything gone
+                    navLinks.style.right = '-100%';
+                    navLinks.style.display = 'none';
+                    navLinks.style.visibility = 'hidden';
+                    navLinks.style.zIndex = '-9999';
+                    
+                    // Remove overlay from DOM
+                    if (overlay && overlay.parentNode) {
+                        overlay.parentNode.removeChild(overlay);
+                    }
+                    
+                    document.body.style.overflow = '';
+                    
+                    // Force reflow
+                    void navLinks.offsetHeight;
+                    
+                    // Recreate overlay for next use
+                    setTimeout(createOverlay, 500);
+                };
+                
                 const toggleMenu = function(e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -2476,44 +2533,21 @@
                         // OPENING MENU
                         mobileMenuToggle.classList.add('active');
                         navLinks.classList.add('active');
-                        overlay.style.transition = 'opacity 0.3s ease';
-                        overlay.style.display = 'block';
-                        overlay.style.zIndex = '998';
-                        overlay.style.visibility = 'visible';
-                        overlay.style.opacity = '1';
-                        overlay.style.pointerEvents = 'auto';
+                        
+                        if (overlay) {
+                            overlay.style.transition = 'opacity 0.3s ease';
+                            overlay.style.display = 'block';
+                            overlay.style.zIndex = '998';
+                            overlay.style.visibility = 'visible';
+                            overlay.style.opacity = '1';
+                            overlay.style.pointerEvents = 'auto';
+                        }
                         document.body.style.overflow = 'hidden';
                         console.log('✅ Opening menu...');
                     } else {
-                        // CLOSING MENU - NUCLEAR OPTION
-                        mobileMenuToggle.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        
-                        // FORCE everything gone immediately
-                        navLinks.style.right = '-100%';
-                        navLinks.style.display = 'none';
-                        navLinks.style.visibility = 'hidden';
-                        navLinks.style.zIndex = '-9999';
-                        
-                        overlay.style.opacity = '0';
-                        overlay.style.visibility = 'hidden';
-                        overlay.style.zIndex = '-9999';
-                        overlay.style.pointerEvents = 'none';
-                        overlay.style.display = 'none';
-                        
-                        document.body.style.overflow = '';
-                        
-                        // Force reflow
-                        void navLinks.offsetHeight;
-                        void overlay.offsetHeight;
-                        
+                        // CLOSING MENU
+                        closeMenuAndDestroyOverlay();
                         console.log('✅ Closing menu - NUCLEAR');
-                        
-                        // Reset for next use
-                        setTimeout(() => {
-                            overlay.style.display = 'block';
-                            overlay.style.zIndex = '-1';
-                        }, 1000);
                     }
                     
                     console.log('Menu is now:', navLinks.classList.contains('active') ? 'OPEN ✅' : 'CLOSED ❌');
@@ -2531,32 +2565,8 @@
                         const href = link.getAttribute('href');
                         console.log('🔗 Menu link clicked:', href);
                         
-                        // AGGRESSIVE: Close everything immediately
-                        mobileMenuToggle.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        
-                        // FORCE the menu completely off screen and hidden
-                        navLinks.style.right = '-100%';
-                        navLinks.style.display = 'none';
-                        navLinks.style.visibility = 'hidden';
-                        navLinks.style.zIndex = '-9999';
-                        
-                        // FORCE overlay completely gone
-                        overlay.style.opacity = '0';
-                        overlay.style.visibility = 'hidden';
-                        overlay.style.zIndex = '-9999';
-                        overlay.style.pointerEvents = 'none';
-                        overlay.style.display = 'none';
-                        
-                        // Unlock body scroll
-                        document.body.style.overflow = '';
-                        document.body.style.position = '';
-                        
-                        // Force a reflow to ensure styles apply
-                        void navLinks.offsetHeight;
-                        void overlay.offsetHeight;
-                        
-                        console.log('✅ Menu closed');
+                        // Close menu and destroy overlay
+                        closeMenuAndDestroyOverlay();
                         
                         // If it's a hash link, force scroll after small delay
                         if (href && href.startsWith('#')) {
@@ -2569,52 +2579,29 @@
                                 if (targetElement) {
                                     const targetPosition = targetElement.offsetTop - 120;
                                     window.scrollTo(0, targetPosition);
+                                    console.log('📍 Scrolled to:', targetPosition);
                                     
                                     // Force scroll a few more times to prevent any reset
-                                    setTimeout(() => window.scrollTo(0, targetPosition), 100);
-                                    setTimeout(() => window.scrollTo(0, targetPosition), 200);
-                                    setTimeout(() => window.scrollTo(0, targetPosition), 300);
+                                    setTimeout(() => {
+                                        window.scrollTo(0, targetPosition);
+                                        console.log('🔄 Force scroll #1');
+                                    }, 100);
+                                    setTimeout(() => {
+                                        window.scrollTo(0, targetPosition);
+                                        console.log('🔄 Force scroll #2');
+                                    }, 200);
+                                    setTimeout(() => {
+                                        window.scrollTo(0, targetPosition);
+                                        console.log('🔄 Force scroll #3');
+                                        
+                                        // Log what element is at the top of the viewport
+                                        const elementsAtTop = document.elementsFromPoint(window.innerWidth / 2, 100);
+                                        console.log('📍 Elements at viewport top:', elementsAtTop.map(el => `${el.tagName}.${el.className}`));
+                                    }, 300);
                                 }
                             }, 100);
                         }
-                        
-                        // Reset overlay after delay
-                        setTimeout(() => {
-                            overlay.style.display = 'block';
-                            overlay.style.zIndex = '-1';
-                        }, 1000);
                     });
-                });
-                
-                // Close when clicking overlay
-                overlay.addEventListener('click', function() {
-                    console.log('Overlay clicked - closing menu');
-                    mobileMenuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    
-                    // FORCE everything gone
-                    navLinks.style.right = '-100%';
-                    navLinks.style.display = 'none';
-                    navLinks.style.visibility = 'hidden';
-                    navLinks.style.zIndex = '-9999';
-                    
-                    overlay.style.opacity = '0';
-                    overlay.style.visibility = 'hidden';
-                    overlay.style.zIndex = '-9999';
-                    overlay.style.pointerEvents = 'none';
-                    overlay.style.display = 'none';
-                    
-                    document.body.style.overflow = '';
-                    
-                    // Force reflow
-                    void navLinks.offsetHeight;
-                    void overlay.offsetHeight;
-                    
-                    // Reset overlay after delay
-                    setTimeout(() => {
-                        overlay.style.display = 'block';
-                        overlay.style.zIndex = '-1';
-                    }, 1000);
                 });
                 
                 console.log('✅ Mobile menu fully initialized!');
