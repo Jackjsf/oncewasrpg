@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Experience the unique fusion of tabletop RPG and epic fantasy novels. Read the Odd Company's story, then play their adventures at your table with simplified d20 mechanics. 7 adventure modules available and coming soon.">
     <title>OnceWas RPG | Where Stories Become Adventures</title>
-    <!-- TEMPORARILY DISABLED TO TEST: <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* Align community buttons horizontally at bottom of cards */
         .community-grid {
@@ -352,21 +352,16 @@
             margin-top: 0 !important;
         }
         
-        /* TEMPORARY DEBUG: Make Adventures section super obvious */
-        .adventures-section {
-            background: linear-gradient(to bottom, #ff0000 0%, #1a1a1a 50px) !important;
-            border-top: 5px solid #00ff00 !important;
-            border-bottom: 5px solid #0000ff !important;
+        /* Make sure all sections are always visible above closed menu elements */
+        /* This fixes conflict with styles.css where menu elements were covering content */
+        section {
             position: relative !important;
-            z-index: 99999 !important;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
+            z-index: 10 !important;
         }
         
-        .adventures-section * {
-            position: relative !important;
-            z-index: 99999 !important;
+        /* But menu when open needs to be above sections */
+        .nav-links.active {
+            z-index: 9999 !important;
         }
         
         .nav-container {
@@ -2547,7 +2542,7 @@
                         void navLinks.offsetHeight;
                         void overlay.offsetHeight;
                         
-                        console.log('✅ Menu and overlay DESTROYED');
+                        console.log('✅ Menu closed');
                         
                         // If it's a hash link, force scroll after small delay
                         if (href && href.startsWith('#')) {
@@ -2558,35 +2553,16 @@
                                 const targetElement = document.getElementById(targetId);
                                 
                                 if (targetElement) {
-                                    console.log('🎯 FORCING scroll to:', targetId);
                                     const targetPosition = targetElement.offsetTop - 120;
                                     window.scrollTo(0, targetPosition);
-                                    console.log('📍 Scrolled to:', targetPosition);
                                     
-                                    // Keep forcing scroll for a few seconds in case something tries to reset it
-                                    let forceCount = 0;
-                                    const forceScroll = setInterval(() => {
-                                        window.scrollTo(0, targetPosition);
-                                        console.log(`🔄 Force scroll #${forceCount + 1}`);
-                                        forceCount++;
-                                        if (forceCount >= 10) {
-                                            clearInterval(forceScroll);
-                                            console.log('✅ Stopped forcing scroll');
-                                        }
-                                    }, 100);
+                                    // Force scroll a few more times to prevent any reset
+                                    setTimeout(() => window.scrollTo(0, targetPosition), 100);
+                                    setTimeout(() => window.scrollTo(0, targetPosition), 200);
+                                    setTimeout(() => window.scrollTo(0, targetPosition), 300);
                                 }
                             }, 100);
                         }
-                        
-                        // Log scroll position every 100ms for 3 seconds
-                        let scrollCheckCount = 0;
-                        const scrollChecker = setInterval(() => {
-                            console.log(`📍 Scroll position: ${window.pageYOffset}px`);
-                            scrollCheckCount++;
-                            if (scrollCheckCount >= 30) {
-                                clearInterval(scrollChecker);
-                            }
-                        }, 100);
                         
                         // Reset overlay after delay
                         setTimeout(() => {
