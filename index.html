@@ -363,11 +363,26 @@
         }
         
         /* Adventures section gets MAXIMUM priority */
-        .adventures-section {
+        /* Ultra-specific selectors to beat styles.css */
+        section.adventures-section,
+        .adventures-section,
+        #adventures {
             position: relative !important;
             z-index: 100 !important;
             background-color: #1a1a1a !important;
-            min-height: 500px !important;
+            background: #1a1a1a !important;
+            min-height: 100vh !important;
+            width: 100% !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            overflow: visible !important;
+        }
+        
+        .adventures-section .container {
+            background-color: #1a1a1a !important;
+            width: 100% !important;
+            min-height: 100vh !important;
         }
         
         .adventures-section * {
@@ -2579,17 +2594,27 @@
                                     window.scrollTo(0, targetPosition);
                                     console.log('📍 Scrolled to:', targetPosition);
                                     
+                                    // Force Adventures section background to dark immediately
+                                    targetElement.style.backgroundColor = '#1a1a1a';
+                                    targetElement.style.background = '#1a1a1a';
+                                    
+                                    // Force repaint
+                                    void targetElement.offsetHeight;
+                                    
                                     // Force scroll a few more times to prevent any reset
                                     setTimeout(() => {
                                         window.scrollTo(0, targetPosition);
+                                        targetElement.style.backgroundColor = '#1a1a1a';
                                         console.log('🔄 Force scroll #1');
                                     }, 100);
                                     setTimeout(() => {
                                         window.scrollTo(0, targetPosition);
+                                        targetElement.style.backgroundColor = '#1a1a1a';
                                         console.log('🔄 Force scroll #2');
                                     }, 200);
                                     setTimeout(() => {
                                         window.scrollTo(0, targetPosition);
+                                        targetElement.style.backgroundColor = '#1a1a1a';
                                         console.log('🔄 Force scroll #3');
                                         
                                         // Log what element is at the top of the viewport
