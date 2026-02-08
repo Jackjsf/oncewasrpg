@@ -332,15 +332,31 @@
             width: 100%;
         }
         
-        /* Add scroll margin to all sections so sticky header doesn't cover content */
+        /* Add padding to all sections for sticky header offset */
+        /* Using padding + negative margin technique for Safari compatibility */
         section {
-            scroll-margin-top: 80px;
+            padding-top: 100px;
+            margin-top: -100px;
         }
         
         @media (max-width: 768px) {
             section {
-                scroll-margin-top: 100px;
+                padding-top: 120px;
+                margin-top: -120px;
             }
+        }
+        
+        /* Exception: Hero section shouldn't have this offset */
+        .hero {
+            padding-top: 0 !important;
+            margin-top: 0 !important;
+        }
+        
+        /* TEMPORARY DEBUG: Make Adventures section super obvious */
+        .adventures-section {
+            background: linear-gradient(to bottom, #ff0000 0%, #1a1a1a 50px) !important;
+            border-top: 5px solid #00ff00 !important;
+            border-bottom: 5px solid #0000ff !important;
         }
         
         .nav-container {
@@ -413,11 +429,12 @@
                 transition: right 0.3s ease-in-out !important;
                 border-left: 2px solid #d4af37 !important;
                 overflow-y: auto !important;
-                z-index: 9999 !important;
+                z-index: -1 !important;
                 margin: 0 !important;
-                display: flex !important;
+                display: none !important;
                 box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5) !important;
                 pointer-events: none !important;
+                visibility: hidden !important;
             }
             
             /* CRITICAL: Show menu when active */
@@ -425,6 +442,9 @@
                 right: 0 !important;
                 display: flex !important;
                 pointer-events: auto !important;
+                visibility: visible !important;
+                z-index: 9999 !important;
+                transition: right 0.3s ease-in-out !important;
             }
             
             .nav-links li {
@@ -2466,52 +2486,19 @@
                 console.log(`Found ${menuLinks.length} menu links`);
                 
                 menuLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        const href = link.getAttribute('href');
-                        console.log('🔗 Menu link clicked:', href);
+                    link.addEventListener('click', function() {
+                        console.log('🔗 Menu link clicked');
                         
-                        // Close menu first
+                        // Just close the menu - browser will handle the rest
                         mobileMenuToggle.classList.remove('active');
                         navLinks.classList.remove('active');
-                        overlay.style.transition = 'opacity 0.3s ease, visibility 0s linear 0.3s, z-index 0s linear 0.3s';
                         overlay.style.opacity = '0';
                         overlay.style.visibility = 'hidden';
                         overlay.style.zIndex = '-1';
                         overlay.style.pointerEvents = 'none';
-                        document.body.style.overflow = ''; // Unlock scroll
-                        console.log('✅ Menu closed');
+                        document.body.style.overflow = '';
                         
-                        // If it's a hash link (internal navigation)
-                        if (href && href.startsWith('#')) {
-                            e.preventDefault();
-                            const targetId = href.substring(1); // Remove the #
-                            console.log('🎯 Looking for target:', targetId);
-                            const targetElement = document.getElementById(targetId);
-                            
-                            if (targetElement) {
-                                console.log('✅ Target element found!', targetElement);
-                                
-                                // iOS Safari workaround - use instant scroll, not smooth
-                                setTimeout(() => {
-                                    console.log('📜 Scrolling to element...');
-                                    
-                                    // Calculate position with offset for header
-                                    const headerOffset = 100;
-                                    const elementPosition = targetElement.getBoundingClientRect().top;
-                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                                    
-                                    // Use instant scroll for iOS reliability
-                                    window.scrollTo({
-                                        top: offsetPosition,
-                                        behavior: 'auto' // Changed from 'smooth' for iOS
-                                    });
-                                    
-                                    console.log('✅ Scrolled to position:', offsetPosition);
-                                }, 400);
-                            } else {
-                                console.error('❌ Target element NOT found for:', targetId);
-                            }
-                        }
+                        console.log('✅ Menu closed - browser handling navigation');
                     });
                 });
                 
@@ -2520,12 +2507,11 @@
                     console.log('Overlay clicked - closing menu');
                     mobileMenuToggle.classList.remove('active');
                     navLinks.classList.remove('active');
-                    overlay.style.transition = 'opacity 0.3s ease, visibility 0s linear 0.3s, z-index 0s linear 0.3s';
                     overlay.style.opacity = '0';
                     overlay.style.visibility = 'hidden';
                     overlay.style.zIndex = '-1';
                     overlay.style.pointerEvents = 'none';
-                    document.body.style.overflow = ''; // Unlock scroll
+                    document.body.style.overflow = '';
                 });
                 
                 console.log('✅ Mobile menu fully initialized!');
