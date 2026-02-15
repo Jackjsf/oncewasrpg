@@ -252,6 +252,157 @@
             }
         }
 
+        /* Countdown Banner Styles */
+        .countdown-banner {
+            position: absolute;
+            top: 80px;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(42, 24, 16, 0.95) 100%);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.4);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .countdown-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .countdown-title {
+            flex-shrink: 0;
+        }
+        
+        .countdown-title h3 {
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 1.2rem;
+            color: #d4af37;
+            margin: 0 0 3px 0;
+            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.5);
+        }
+        
+        .countdown-title p {
+            font-size: 0.85rem;
+            color: rgba(212, 175, 55, 0.7);
+            margin: 0;
+            font-style: italic;
+        }
+        
+        .countdown-timer {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+        }
+        
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: 'Cinzel', Georgia, serif;
+            background: linear-gradient(135deg, #f4e4c1 0%, #d4af37 50%, #b8941e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .countdown-label {
+            font-size: 0.7rem;
+            color: rgba(212, 175, 55, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        
+        .countdown-separator {
+            font-size: 1.5rem;
+            color: rgba(212, 175, 55, 0.3);
+            align-self: center;
+            padding-bottom: 20px;
+        }
+        
+        .launch-message {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .launch-message h3 {
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 2rem;
+            color: #d4af37;
+            margin: 0 0 10px 0;
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.6);
+        }
+        
+        .launch-message p {
+            font-size: 1.1rem;
+            color: rgba(212, 175, 55, 0.8);
+            margin: 0;
+            font-style: italic;
+        }
+
+        /* Mobile adjustments for countdown banner */
+        @media (max-width: 768px) {
+            .countdown-banner {
+                top: 60px;
+                padding: 12px 15px;
+            }
+            
+            .countdown-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .countdown-title h3 {
+                font-size: 1rem;
+                text-align: center;
+            }
+            
+            .countdown-title p {
+                font-size: 0.75rem;
+                text-align: center;
+            }
+            
+            .countdown-timer {
+                gap: 10px;
+            }
+            
+            .countdown-unit {
+                min-width: 50px;
+            }
+            
+            .countdown-value {
+                font-size: 1.5rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.6rem;
+            }
+            
+            .launch-message h3 {
+                font-size: 1.5rem;
+            }
+            
+            .launch-message p {
+                font-size: 0.95rem;
+            }
+        }
+
         /* Adventure buttons - side by side */
         .adventure-buttons {
             display: flex;
@@ -863,6 +1014,37 @@
 
     <!-- Hero Section with Video Background -->
     <section class="hero">
+        <!-- Countdown Banner -->
+        <div class="countdown-banner" id="countdownBanner">
+            <div class="countdown-content" id="countdownContent">
+                <div class="countdown-title">
+                    <h3>Book One Launches</h3>
+                    <p>The Odd Company & the Light of Yavanna</p>
+                </div>
+                <div class="countdown-timer" id="countdownTimer">
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="days">00</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="hours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="minutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="seconds">00</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- Video Background Container -->
         <div class="hero-video-container">
             <!-- Fallback Image (loads first, shows on mobile) -->
@@ -2757,6 +2939,48 @@
                 });
             }
         });
+    </script>
+
+    <!-- Countdown Timer Script -->
+    <script>
+        (function() {
+            // Set the launch date: March 15, 2026 at midnight
+            const launchDate = new Date('2026-03-15T00:00:00').getTime();
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const timeLeft = launchDate - now;
+                
+                // Check if launch date has passed
+                if (timeLeft <= 0) {
+                    document.getElementById('countdownContent').innerHTML = `
+                        <div class="launch-message">
+                            <h3>The Journey Begins!</h3>
+                            <p>Book One: The Odd Company & the Light of Yavanna is now available</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Calculate time units
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                // Update the display
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }
+            
+            // Update countdown immediately
+            updateCountdown();
+            
+            // Update every second
+            setInterval(updateCountdown, 1000);
+        })();
     </script>
 </body>
 </html>
