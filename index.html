@@ -252,154 +252,190 @@
             }
         }
 
-        /* Countdown Banner Styles */
-        .countdown-banner {
-            position: absolute;
-            top: 80px;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(42, 24, 16, 0.95) 100%);
-            border-bottom: 2px solid rgba(212, 175, 55, 0.4);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
-        
-        .countdown-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-        
-        .countdown-title {
-            flex-shrink: 0;
-        }
-        
-        .countdown-title h3 {
-            font-family: 'Cinzel', Georgia, serif;
-            font-size: 1.2rem;
-            color: #d4af37;
-            margin: 0 0 3px 0;
-            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.5);
-        }
-        
-        .countdown-title p {
-            font-size: 0.85rem;
-            color: rgba(212, 175, 55, 0.7);
-            margin: 0;
-            font-style: italic;
-        }
-        
-        .countdown-timer {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .countdown-unit {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 60px;
-        }
-        
-        .countdown-value {
-            font-size: 2rem;
-            font-weight: bold;
-            font-family: 'Cinzel', Georgia, serif;
-            background: linear-gradient(135deg, #f4e4c1 0%, #d4af37 50%, #b8941e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
-        }
-        
-        .countdown-label {
-            font-size: 0.7rem;
-            color: rgba(212, 175, 55, 0.7);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
-        }
-        
-        .countdown-separator {
-            font-size: 1.5rem;
-            color: rgba(212, 175, 55, 0.3);
-            align-self: center;
-            padding-bottom: 20px;
-        }
-        
-        .launch-message {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .launch-message h3 {
-            font-family: 'Cinzel', Georgia, serif;
-            font-size: 2rem;
-            color: #d4af37;
-            margin: 0 0 10px 0;
-            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.6);
-        }
-        
-        .launch-message p {
-            font-size: 1.1rem;
-            color: rgba(212, 175, 55, 0.8);
-            margin: 0;
-            font-style: italic;
+        /* Hero Feature Strips */
+        .hero-feature-strip {
+            padding: 70px 0;
+            position: relative;
         }
 
-        /* Mobile adjustments for countdown banner */
-        @media (max-width: 768px) {
-            .countdown-banner {
-                top: 60px;
-                padding: 12px 15px;
-            }
-            
-            .countdown-content {
-                flex-direction: column;
-                gap: 12px;
-            }
-            
-            .countdown-title h3 {
-                font-size: 1rem;
+        .hero-feature-strip.novel-strip {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0e05 50%, #0d0d0d 100%);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .hero-feature-strip.adventures-strip {
+            background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .novel-feature-inner {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .novel-feature-cover img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 30px rgba(212,175,55,0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .novel-feature-cover img:hover {
+            transform: scale(1.03) rotate(-1deg);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 50px rgba(212,175,55,0.35);
+        }
+
+        .novel-feature-text .now-available-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37, #b8941e);
+            color: #0d0d0d;
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+
+        .novel-feature-text h2 {
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 2.1rem;
+            color: #f4e4c1;
+            margin: 0 0 8px 0;
+            line-height: 1.2;
+            text-shadow: 0 2px 15px rgba(212,175,55,0.3);
+        }
+
+        .novel-feature-text .novel-series-label {
+            font-size: 0.95rem;
+            color: #d4af37;
+            font-style: italic;
+            margin: 0 0 18px 0;
+        }
+
+        .novel-feature-text p.novel-desc {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.05rem;
+            line-height: 1.75;
+            margin-bottom: 28px;
+        }
+
+        .novel-feature-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .adventures-feature-header {
+            text-align: center;
+            margin-bottom: 44px;
+        }
+
+        .adventures-feature-header .strip-eyebrow {
+            display: inline-block;
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #d4af37;
+            margin-bottom: 12px;
+        }
+
+        .adventures-feature-header h2 {
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 2rem;
+            color: #f4e4c1;
+            margin: 0 0 12px 0;
+            text-shadow: 0 2px 15px rgba(212,175,55,0.25);
+        }
+
+        .adventures-feature-header p {
+            color: rgba(255,255,255,0.65);
+            font-size: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .adventures-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 14px;
+            margin-bottom: 36px;
+        }
+
+        .adventure-mini-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .adventure-mini-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.7), 0 0 20px rgba(212,175,55,0.25);
+        }
+
+        .adventure-mini-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .adventure-mini-card .mini-card-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%);
+            padding: 22px 7px 7px;
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 0.62rem;
+            font-weight: 700;
+            color: #d4af37;
+            text-align: center;
+            letter-spacing: 0.4px;
+        }
+
+        .adventures-feature-cta {
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .novel-feature-inner {
+                grid-template-columns: 1fr;
+                gap: 36px;
                 text-align: center;
             }
-            
-            .countdown-title p {
-                font-size: 0.75rem;
-                text-align: center;
+            .novel-feature-cover {
+                max-width: 220px;
+                margin: 0 auto;
             }
-            
-            .countdown-timer {
+            .novel-feature-actions {
+                justify-content: center;
+            }
+            .adventures-mini-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .novel-feature-text h2 {
+                font-size: 1.7rem;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .adventures-mini-grid {
+                grid-template-columns: repeat(3, 1fr);
                 gap: 10px;
             }
-            
-            .countdown-unit {
-                min-width: 50px;
-            }
-            
-            .countdown-value {
-                font-size: 1.5rem;
-            }
-            
-            .countdown-label {
-                font-size: 0.6rem;
-            }
-            
-            .launch-message h3 {
-                font-size: 1.5rem;
-            }
-            
-            .launch-message p {
-                font-size: 0.95rem;
+            .hero-feature-strip {
+                padding: 50px 0;
             }
         }
 
@@ -1014,37 +1050,6 @@
 
     <!-- Hero Section with Video Background -->
     <section class="hero">
-        <!-- Countdown Banner -->
-        <div class="countdown-banner" id="countdownBanner">
-            <div class="countdown-content" id="countdownContent">
-                <div class="countdown-title">
-                    <h3>Book One Launches</h3>
-                    <p>The Odd Company & the Light of Yavanna</p>
-                </div>
-                <div class="countdown-timer" id="countdownTimer">
-                    <div class="countdown-unit">
-                        <div class="countdown-value" id="days">00</div>
-                        <div class="countdown-label">Days</div>
-                    </div>
-                    <div class="countdown-separator">:</div>
-                    <div class="countdown-unit">
-                        <div class="countdown-value" id="hours">00</div>
-                        <div class="countdown-label">Hours</div>
-                    </div>
-                    <div class="countdown-separator">:</div>
-                    <div class="countdown-unit">
-                        <div class="countdown-value" id="minutes">00</div>
-                        <div class="countdown-label">Minutes</div>
-                    </div>
-                    <div class="countdown-separator">:</div>
-                    <div class="countdown-unit">
-                        <div class="countdown-value" id="seconds">00</div>
-                        <div class="countdown-label">Seconds</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
         <!-- Video Background Container -->
         <div class="hero-video-container">
             <!-- Fallback Image (loads first, shows on mobile) -->
@@ -1084,6 +1089,75 @@
                 </div>
                 
                 <p class="hero-tagline">The only RPG where you can read the story, play the quest, and forge your own legend.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Novel Feature Strip -->
+    <section class="hero-feature-strip novel-strip">
+        <div class="container" style="max-width:1200px; margin:0 auto; padding:0 30px;">
+            <div class="novel-feature-inner">
+                <div class="novel-feature-cover">
+                    <a href="https://www.amazon.com/dp/B0GNKSV2KL" target="_blank">
+                        <img src="Book_One_eBook_Cover.jpg" alt="The Odd Company and the Light of Yavanna">
+                    </a>
+                </div>
+                <div class="novel-feature-text">
+                    <span class="now-available-badge">⚔ Now Available</span>
+                    <h2>The Odd Company &amp; the Light of Yavanna</h2>
+                    <p class="novel-series-label">Book One of The Odd Company Chronicles</p>
+                    <p class="novel-desc">Four unlikely heroes. One missing sheep mystery. A world-threatening quest. Follow the Odd Company through the legendary adventures of OnceWas — then play those same quests at your own table using the OnceWas RPG system.</p>
+                    <div class="novel-feature-actions">
+                        <a href="https://www.amazon.com/dp/B0GNKSV2KL" target="_blank" class="cta-button primary">Order on Amazon</a>
+                        <a href="#novels" class="cta-button secondary">Learn More</a>
+                        <a href="#chapter-one" class="cta-button secondary" onclick="toggleChapter(); return true;">Sneak Peek: Chapter 1</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Adventures Feature Strip -->
+    <section class="hero-feature-strip adventures-strip">
+        <div class="container" style="max-width:1200px; margin:0 auto; padding:0 30px;">
+            <div class="adventures-feature-header">
+                <span class="strip-eyebrow">⚔ Seven Complete Modules</span>
+                <h2>The OnceWas Adventure Series</h2>
+                <p>Professionally designed, system-agnostic quest modules. Play them standalone or paired with the novels — each adventure brings the world of OnceWas to your table.</p>
+            </div>
+            <div class="adventures-mini-grid">
+                <a href="https://www.drivethrurpg.com/en/product/545358/a1-ogres-of-worros-woods?affiliate_id=237690" target="_blank" class="adventure-mini-card">
+                    <img src="The_Ogres_of_Worros_Woods.jpg" alt="A1: Ogres of Worros Woods">
+                    <div class="mini-card-label">A1: Worros Woods</div>
+                </a>
+                <a href="https://www.drivethrurpg.com/en/product/547395/a2-the-meldorin-winery?affiliate_id=237690" target="_blank" class="adventure-mini-card">
+                    <img src="The_Meldorin_Winery_Cover_DTRPG.png" alt="A2: The Meldorin Winery">
+                    <div class="mini-card-label">A2: Meldorin Winery</div>
+                </a>
+                <a href="https://www.drivethrurpg.com/product/YOUR_A3_PRODUCT_ID?affiliate_id=237690" target="_blank" class="adventure-mini-card">
+                    <img src="Tower_of_the_Immortal_Orc.png" alt="A3: Tower of the Immortal Orc">
+                    <div class="mini-card-label">A3: Immortal Orc</div>
+                </a>
+                <a href="https://www.drivethrurpg.com/product/YOUR_A4_PRODUCT_ID?affiliate_id=237690" target="_blank" class="adventure-mini-card">
+                    <img src="Werewolves_of_Orckrag.jpg" alt="A4: Werewolves of Orckrag">
+                    <div class="mini-card-label">A4: Werewolves</div>
+                </a>
+                <a href="https://www.drivethrurpg.com/en/product/549236/a5-silvandor-and-the-shattered-light?affiliate_id=237690" target="_blank" class="adventure-mini-card">
+                    <img src="Silvandor_and_the_Shattered_Light.jpg" alt="A5: Silvandor and the Shattered Light">
+                    <div class="mini-card-label">A5: Silvandor</div>
+                </a>
+                <a href="https://www.drivethrurpg.com/en/product/556215/a6-beneath-the-city-of-keys?affiliate_id=237690" target="_blank" class="adventure-mini-card">
+                    <img src="A6-Beneath_the_City_of_Keys.jpg" alt="A6: Beneath the City of Keys">
+                    <div class="mini-card-label">A6: City of Keys</div>
+                </a>
+                <a href="https://www.drivethrurpg.com/en/product/558471/a7-the-witch-of-drell-s-mines?affiliate_id=237690" target="_blank" class="adventure-mini-card">
+                    <img src="Drell_s_Mine_Cover.jpg" alt="A7: The Witch of Drell's Mine">
+                    <div class="mini-card-label">A7: Witch of Drell</div>
+                </a>
+            </div>
+            <div class="adventures-feature-cta">
+                <a href="#adventures" class="cta-button primary">Browse All Adventures</a>
+                <a href="#newsletter" class="cta-button secondary" style="margin-left:14px;">Get a Free Adventure</a>
             </div>
         </div>
     </section>
@@ -1151,9 +1225,9 @@
                 </div>
                 
                 <div class="door-card">
-                    <h3>🎲 Gen Con 2026</h3>
-                    <p>Meet us at Gen Con 2026! Run official OnceWas adventures and meet the creator.</p>
-                    <a href="https://www.gencon.com" target="_blank" rel="noopener" class="text-link">Visit Gen Con →</a>
+                    <h3>🎲 MepaCon</h3>
+                    <p>Meet us at MepaCon! Run official OnceWas adventures and meet the creator.</p>
+                    <a href="https://www.mepacon.com" target="_blank" rel="noopener" class="text-link">Visit MepaCon →</a>
                 </div>
                 
                 <div class="door-card">
@@ -2941,46 +3015,5 @@
         });
     </script>
 
-    <!-- Countdown Timer Script -->
-    <script>
-        (function() {
-            // Set the launch date: March 15, 2026 at midnight
-            const launchDate = new Date('2026-03-15T00:00:00').getTime();
-            
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const timeLeft = launchDate - now;
-                
-                // Check if launch date has passed
-                if (timeLeft <= 0) {
-                    document.getElementById('countdownContent').innerHTML = `
-                        <div class="launch-message">
-                            <h3>The Journey Begins!</h3>
-                            <p>Book One: The Odd Company & the Light of Yavanna is now available</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                // Calculate time units
-                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                
-                // Update the display
-                document.getElementById('days').textContent = String(days).padStart(2, '0');
-                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-            }
-            
-            // Update countdown immediately
-            updateCountdown();
-            
-            // Update every second
-            setInterval(updateCountdown, 1000);
-        })();
-    </script>
 </body>
 </html>
