@@ -1363,38 +1363,41 @@
                 <div class="books-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 2rem;">
                     <!-- Book 1 -->
                     <div class="book-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; padding: 1.5rem; gap: 1rem;">
-                        <img src="Book_One_Cover_The_Odd_Company___the_Light_of_Yavanna.jpg" alt="Book One: The Odd Company & the Light of Yavanna" style="width: 100%; max-width: 200px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+                        <img src="Book_One_Cover_The_Odd_Company___the_Light_of_Yavanna.jpg" alt="Book One: The Odd Company & the Light of Yavanna" onclick="openBookModal('book1')" style="width: 100%; max-width: 200px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 12px 32px rgba(0,0,0,0.7)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.5)'">
                         <div>
                             <p style="font-size: 0.8rem; color: #b0b0b0; margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 1px;">Book One</p>
                             <h4 style="color: #ffffff; margin-bottom: 0.5rem; text-shadow: 0 1px 4px rgba(0,0,0,0.8);">The Odd Company &amp; the Light of Yavanna</h4>
                             <span style="display: inline-block; background: #2d5a27; color: #7dd87d; border: 1px solid #4a8a44; border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.8rem; margin-bottom: 1rem;">✦ Available Now</span>
-                            <p style="font-size: 0.9rem; color: #d8d0c0; margin-bottom: 1rem;">Four unlikely heroes. One missing sheep mystery. A world-threatening quest.</p>
+                            <p style="font-size: 0.9rem; color: #000000; margin-bottom: 1rem;">Four strangers. One missing sheep mystery. What starts as easy money becomes a journey into ancient evils, forgotten curses, and conspiracies spanning centuries.</p>
                             <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                                 <a href="https://www.amazon.com/dp/B0GNKSV2KL" target="_blank" class="cta-button primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Buy eBook on Amazon</a>
                                 <a href="https://www.amazon.com/dp/B0GRPXPB3F" target="_blank" class="cta-button primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Buy Paperback on Amazon</a>
                             </div>
+                            <button onclick="openBookModal('book1')" style="margin-top: 0.5rem; background: none; border: 1px solid rgba(212,175,55,0.5); color: #d4af37; border-radius: 20px; padding: 0.3rem 1rem; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(212,175,55,0.15)'" onmouseout="this.style.background='none'">More Info →</button>
                         </div>
                     </div>
 
                     <!-- Book 2 -->
                     <div class="book-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; padding: 1.5rem; gap: 1rem;">
-                        <img src="Book_Two_Cover_The_Odd_Company___The_Circlet_of_the_Abyss.png" alt="Book Two: The Odd Company & The Circlet of the Abyss" style="width: 100%; max-width: 200px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+                        <img src="Book_Two_Cover_The_Odd_Company___The_Circlet_of_the_Abyss.png" alt="Book Two: The Odd Company & The Circlet of the Abyss" onclick="openBookModal('book2')" style="width: 100%; max-width: 200px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 12px 32px rgba(0,0,0,0.7)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.5)'">
                         <div>
                             <p style="font-size: 0.8rem; color: #b0b0b0; margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 1px;">Book Two</p>
                             <h4 style="color: #ffffff; margin-bottom: 0.5rem; text-shadow: 0 1px 4px rgba(0,0,0,0.8);">The Odd Company &amp; The Circlet of the Abyss</h4>
-                            <span style="display: inline-block; background: rgba(255,255,255,0.1); color: #e0e0e0; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.8rem; margin-bottom: 1rem;">⏳ Coming Soon</span>
-                            <p style="font-size: 0.9rem; color: #d8d0c0;">The Odd Company faces their darkest challenge yet.</p>
+                            <span style="display: inline-block; background: #4a4a4a; color: #cccccc; border: 1px solid #666666; border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.8rem; margin-bottom: 1rem;">⏳ Coming Soon</span>
+                            <p style="font-size: 0.9rem; color: #000000;">Three weeks after burying one of their own, the Odd Company faces a fractured kingdom, a cursed crown, and an ancient evil awakening within their own ranks.</p>
+                            <button onclick="openBookModal('book2')" style="margin-top: 0.75rem; background: none; border: 1px solid rgba(212,175,55,0.5); color: #d4af37; border-radius: 20px; padding: 0.3rem 1rem; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(212,175,55,0.15)'" onmouseout="this.style.background='none'">More Info →</button>
                         </div>
                     </div>
 
                     <!-- Book 3 -->
                     <div class="book-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; padding: 1.5rem; gap: 1rem;">
-                        <img src="Book_3_Cover_The_Odd_Company___Ixalor_Unchained.png" alt="Book Three: The Odd Company & Ixalor Unchained" style="width: 100%; max-width: 200px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+                        <img src="Book_3_Cover_The_Odd_Company___Ixalor_Unchained.png" alt="Book Three: The Odd Company & Ixalor Unchained" onclick="openBookModal('book3')" style="width: 100%; max-width: 200px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 12px 32px rgba(0,0,0,0.7)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.5)'">
                         <div>
                             <p style="font-size: 0.8rem; color: #b0b0b0; margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 1px;">Book Three</p>
                             <h4 style="color: #ffffff; margin-bottom: 0.5rem; text-shadow: 0 1px 4px rgba(0,0,0,0.8);">The Odd Company &amp; Ixalor Unchained</h4>
-                            <span style="display: inline-block; background: rgba(255,255,255,0.1); color: #e0e0e0; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.8rem; margin-bottom: 1rem;">⏳ Coming Soon</span>
-                            <p style="font-size: 0.9rem; color: #d8d0c0;">The epic conclusion to The Odd Company Chronicles.</p>
+                            <span style="display: inline-block; background: #4a4a4a; color: #cccccc; border: 1px solid #666666; border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.8rem; margin-bottom: 1rem;">⏳ Coming Soon</span>
+                            <p style="font-size: 0.9rem; color: #000000;">The epic conclusion. Two ancient relics. One final reckoning with Ixalor — who may have orchestrated his own release all along.</p>
+                            <button onclick="openBookModal('book3')" style="margin-top: 0.75rem; background: none; border: 1px solid rgba(212,175,55,0.5); color: #d4af37; border-radius: 20px; padding: 0.3rem 1rem; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(212,175,55,0.15)'" onmouseout="this.style.background='none'">More Info →</button>
                         </div>
                     </div>
                 </div>
@@ -3003,6 +3006,95 @@
         });
     </script>
     
+    <!-- Book Info Modals -->
+    <div id="bookModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:99999; overflow-y:auto; padding:20px; box-sizing:border-box;" onclick="if(event.target===this) closeBookModal()">
+        <div style="max-width:680px; margin:40px auto; background:linear-gradient(135deg, #1a0e05 0%, #0d0d0d 100%); border:1px solid #d4af37; border-radius:16px; padding:0; overflow:hidden; position:relative;">
+            <button onclick="closeBookModal()" style="position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.1); border:none; color:#d4af37; font-size:1.4rem; width:36px; height:36px; border-radius:50%; cursor:pointer; z-index:10; line-height:1;">✕</button>
+            <div id="bookModalContent" style="padding:2.5rem;"></div>
+        </div>
+    </div>
+
+    <script>
+        const bookData = {
+            book1: {
+                img: 'Book_One_Cover_The_Odd_Company___the_Light_of_Yavanna.jpg',
+                label: 'Book One',
+                title: 'The Odd Company & the Light of Yavanna',
+                badge: '<span style="display:inline-block;background:#2d5a27;color:#7dd87d;border:1px solid #4a8a44;border-radius:20px;padding:0.25rem 0.75rem;font-size:0.85rem;margin-bottom:1.25rem;">✦ Available Now</span>',
+                subtitle: 'A OnceWas Fantasy Adventure',
+                description: `<p>Four strangers meet in a tavern.</p>
+<p>A scholar short on coin, a dwarf seeking honest work, a thief planning one last job, and a cleric with dark secrets.</p>
+<p>The job seems simple: investigate some missing sheep in a quiet village.</p>
+<p><em>It isn't.</em></p>
+<p>What starts as easy money becomes a journey into ancient evils, forgotten curses, and conspiracies that reach back through centuries. From monster-haunted forests to the hidden courts of elven nobility, the unlikely companions discover that some threats are too dangerous to face alone.</p>
+<p>And some bonds can only be forged in fire.</p>
+<p>A classic fantasy adventure about friendship, courage, and the price of heroism.</p>`,
+                buttons: `<a href="https://www.amazon.com/dp/B0GNKSV2KL" target="_blank" class="cta-button primary" style="margin-right:10px;margin-bottom:10px;">Buy eBook on Amazon</a>
+                           <a href="https://www.amazon.com/dp/B0GRPXPB3F" target="_blank" class="cta-button primary" style="margin-bottom:10px;">Buy Paperback on Amazon</a>`
+            },
+            book2: {
+                img: 'Book_Two_Cover_The_Odd_Company___The_Circlet_of_the_Abyss.png',
+                label: 'Book Two',
+                title: 'The Odd Company & the Circlet of the Abyss',
+                badge: '<span style="display:inline-block;background:#4a4a4a;color:#cccccc;border:1px solid #666;border-radius:20px;padding:0.25rem 0.75rem;font-size:0.85rem;margin-bottom:1.25rem;">⏳ Coming Soon</span>',
+                subtitle: 'A OnceWas Fantasy Adventure',
+                description: `<p>Three weeks after burying one of their own, the Odd Company sits in uneasy silence — four survivors haunted by grief and unfinished vows. But the realm will not give them time to mourn.</p>
+<p>The king is dead, the prince has vanished, and black-bannered armies gather as rivals move to seize the throne. Summoned to the city of Griffindale, the Company is drawn into a web of conspiracy where politics and sorcery are impossible to tell apart.</p>
+<p>Worse still, the darkness is no longer only outside their ranks. Avestdra bears the Circlet of the Abyss, a cursed crown that grants terrible power at the cost of her soul. Each spell she casts brings her closer to becoming the vessel of a long-dead sorceress — and to the return of the Whisper King, who waits patiently in her mind.</p>
+<p>As assassins close in, spies whisper, and a legendary evil stirs, the Company must gamble everything on a desperate voyage to Shipwreck Island — home to a mad wizard, walking corpses, and a Leviathan that hunts the living.</p>
+<p>They have saved the realm before.</p>
+<p><em>This time, the enemy wears the face of the woman they love.</em></p>`,
+                buttons: `<a href="#newsletter" class="cta-button secondary" onclick="closeBookModal()">Get Notified →</a>`
+            },
+            book3: {
+                img: 'Book_3_Cover_The_Odd_Company___Ixalor_Unchained.png',
+                label: 'Book Three',
+                title: 'The Odd Company & Ixalor Unchained',
+                badge: '<span style="display:inline-block;background:#4a4a4a;color:#cccccc;border:1px solid #666;border-radius:20px;padding:0.25rem 0.75rem;font-size:0.85rem;margin-bottom:1.25rem;">⏳ Coming Soon</span>',
+                subtitle: 'A OnceWas Fantasy Adventure',
+                description: `<p>The Odd Company is pushed beyond every limit they've ever known. Their best hope lies in recovering two ancient relics: the Aetherblade, a weapon forged to cut souls, and the Black Shield, a relic said to turn aside even the hunger of gods.</p>
+<p>Their quest carries them from a haunted mansion adrift in the astral plane, to the obsidian halls of a Vampire Lord, and finally into the shattered ruins of Ixalor's fallen empire. Each relic demands a price. Each reveals more of the truth the gods tried desperately to bury.</p>
+<p>With the forbidden Soultrap in hand, they intend to shatter the chains binding the Eternal Necromancer in the Void Beyond.</p>
+<p><em>They plan to kill him.</em></p>
+<p>But Ixalor — ancient, patient, and impossibly clever — may have orchestrated his own release long before their quest began. And as his shadow stirs, the Odd Company must face the unthinkable: they may not be stopping the apocalypse…</p>
+<p><strong>They may be delivering it.</strong></p>`,
+                buttons: `<a href="#newsletter" class="cta-button secondary" onclick="closeBookModal()">Get Notified →</a>`
+            }
+        };
+
+        function openBookModal(bookKey) {
+            const book = bookData[bookKey];
+            if (!book) return;
+            document.getElementById('bookModalContent').innerHTML = `
+                <div style="display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap;margin-bottom:1.5rem;">
+                    <img src="${book.img}" alt="${book.title}" style="width:140px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.6);flex-shrink:0;">
+                    <div style="flex:1;min-width:200px;">
+                        <p style="font-size:0.75rem;color:#b0b0b0;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.25rem;">${book.label}</p>
+                        <h3 style="font-family:'Cinzel',Georgia,serif;color:#f4e4c1;font-size:1.3rem;margin:0 0 0.5rem 0;line-height:1.3;">${book.title}</h3>
+                        <p style="color:#d4af37;font-style:italic;font-size:0.9rem;margin:0 0 1rem 0;">${book.subtitle}</p>
+                        ${book.badge}
+                    </div>
+                </div>
+                <div style="color:#d8d0c0;font-size:0.95rem;line-height:1.75;border-top:1px solid rgba(212,175,55,0.2);padding-top:1.25rem;margin-bottom:1.5rem;">
+                    ${book.description}
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                    ${book.buttons}
+                </div>`;
+            document.getElementById('bookModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBookModal() {
+            document.getElementById('bookModal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeBookModal();
+        });
+    </script>
+
     <!-- Auto-redirect to thank-you page after successful subscription -->
     <script>
         // Watch for MailerLite success message, then redirect to thank-you page
